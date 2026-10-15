@@ -1,15 +1,14 @@
 :root {
-  --bg: #f6f6f3;
-  --ink: #0a0a0a;
-  --mute: #686763;
-  --grid-line: rgba(10, 10, 10, 0.08);
-  --pop: #fe76fe;
-  --green: #00e676;
-  --yellow: #ffd600;
-  --red: #ff1744;
-  --disp: "Archivo", Helvetica, sans-serif;
-  --sans: "Manrope", sans-serif;
-  --mono: "JetBrains Mono", monospace;
+  --bg: #f8f8f6;
+  --ink: #121212;
+  --mute: #8c8c87;
+  --hairline: rgba(18, 18, 18, 0.11);
+  --border: rgba(18, 18, 18, 0.22);
+  --green: #18e279;
+  --yellow: #f5c400;
+  --red: #ff2a4b;
+  --sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+  --mono: "IBM Plex Mono", monospace;
 }
 
 * {
@@ -25,79 +24,82 @@ html, body {
   background: var(--bg);
   color: var(--ink);
   font-family: var(--sans);
+  font-weight: 300;
   -webkit-font-smoothing: antialiased;
   user-select: none;
 }
 
-/* Modalità FUCKED UP: contrasto più tagliente sul bordo */
-body[data-mode="fuckedup"] {
-  --grid-line: rgba(10, 10, 10, 0.15);
-}
-
-/* ---------------- TOP HUD ---------------- */
+/* ==========================================================================
+   TOP BAR — BERLIN EDITORIAL MINIMALISM
+   ========================================================================== */
 .hud-top {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  height: 60px;
-  background: var(--bg);
-  border-bottom: 2px solid var(--ink);
+  height: 52px;
+  background: rgba(248, 248, 246, 0.9);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 20px;
+  padding: 0 24px;
   z-index: 40;
   gap: 16px;
 }
 
-.brand-trigger {
+.brand-btn {
   background: none;
-  border: 2px solid var(--ink);
-  padding: 6px 12px;
+  border: 0;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   cursor: pointer;
-  transition: background 0.2s, transform 0.15s;
+  color: var(--ink);
+  padding: 4px 0;
 }
 
-.brand-trigger:hover {
-  background: var(--ink);
-  color: var(--bg);
-}
-
-.dot-live {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
+/* Indicatore geometrico che cambia forma in base allo switch */
+.shape-indicator {
+  width: 11px;
+  height: 11px;
   background: var(--green);
   display: inline-block;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  border-radius: 50%;
 }
 
-body[data-mode="invested"] .dot-live { background: var(--yellow); }
-body[data-mode="fuckedup"] .dot-live { background: var(--red); }
-
-.brand-name {
-  font-family: var(--disp);
-  font-stretch: 65%;
-  font-variation-settings: "wdth" 65;
-  font-weight: 900;
-  font-size: 1.35rem;
-  letter-spacing: 0.03em;
+body[data-mode="invested"] .shape-indicator {
+  background: var(--yellow);
+  border-radius: 0%;
+  transform: rotate(0deg);
 }
 
-.brand-sub {
+body[data-mode="fuckedup"] .shape-indicator {
+  background: var(--red);
+  border-radius: 0%;
+  clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
+  transform: rotate(18deg) scale(1.15);
+}
+
+.brand-title {
+  font-size: 0.95rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+}
+
+.brand-meta {
   font-family: var(--mono);
   font-size: 0.7rem;
-  font-weight: 700;
-  opacity: 0.7;
+  font-weight: 300;
+  color: var(--mute);
 }
 
 .hud-filters {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
   overflow-x: auto;
   scrollbar-width: none;
 }
@@ -106,100 +108,117 @@ body[data-mode="fuckedup"] .dot-live { background: var(--red); }
 
 .flt {
   background: transparent;
-  border: 1.5px solid var(--ink);
-  color: var(--ink);
-  font-family: var(--mono);
-  font-size: 0.72rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  padding: 6px 11px;
+  border: 1px solid transparent;
+  color: var(--mute);
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  font-weight: 300;
+  letter-spacing: 0.03em;
+  padding: 5px 11px;
   cursor: pointer;
   white-space: nowrap;
-  transition: all 0.18s ease;
+  transition: all 0.25s ease;
 }
 
-.flt sup {
-  font-size: 0.6rem;
-  margin-left: 2px;
+/* Anche i filtri seguono la morfologia dello switch */
+body[data-mode="playful"] .flt { border-radius: 999px; }
+body[data-mode="invested"] .flt { border-radius: 0px; }
+body[data-mode="fuckedup"] .flt {
+  border-radius: 0px;
+  clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
 }
 
 .flt:hover {
-  background: rgba(10, 10, 10, 0.08);
+  color: var(--ink);
+  border-color: var(--border);
 }
 
 .flt.on {
-  background: var(--ink);
-  color: var(--bg);
+  color: var(--ink);
+  border-color: var(--ink);
+  background: #fff;
+  font-weight: 400;
 }
 
-.audio-btn {
-  background: transparent;
-  border: 2px solid var(--ink);
-  padding: 6px 12px;
+.hud-right {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
+}
+
+.util-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--ink);
+  padding: 5px 11px;
   font-family: var(--mono);
-  font-size: 0.72rem;
-  font-weight: 800;
+  font-size: 0.68rem;
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
   cursor: pointer;
-  white-space: nowrap;
+  transition: border-color 0.2s, background 0.2s;
 }
 
-.audio-btn[aria-pressed="true"] {
-  background: var(--ink);
-  color: var(--bg);
+.util-btn:hover,
+.util-btn[aria-pressed="true"] {
+  border-color: var(--ink);
+  background: #fff;
 }
 
-.eq-bars {
+.eq-mini {
   display: inline-flex;
   align-items: flex-end;
   gap: 2px;
-  height: 12px;
+  height: 10px;
 }
 
-.eq-bars i {
-  width: 3px;
+.eq-mini i {
+  width: 1.5px;
   height: 3px;
-  background: currentColor;
+  background: var(--ink);
   display: block;
   transition: height 0.08s linear;
 }
 
-/* ---------------- MIND STAGE & SWISS GRID ---------------- */
+/* ==========================================================================
+   MIND STAGE & GRIGLIA MICRO-MILLIMETRATA BERLINESE
+   ========================================================================== */
 .mind-stage {
   position: relative;
   width: 100vw;
-  height: calc(100vh - 118px);
-  margin-top: 60px;
+  height: calc(100vh - 98px);
+  margin-top: 52px;
   overflow: hidden;
   cursor: crosshair;
 }
 
-.swiss-grid {
+.berlin-grid {
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
-  background-size: 48px 48px;
+    linear-gradient(to right, var(--hairline) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--hairline) 1px, transparent 1px);
+  background-size: 64px 64px;
   pointer-events: none;
   z-index: 1;
 }
 
-.coord {
+.c-mark {
   position: absolute;
   font-family: var(--mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.08em;
+  font-size: 0.64rem;
+  font-weight: 300;
   color: var(--mute);
-  text-transform: uppercase;
+  letter-spacing: 0.06em;
 }
 
-.c-tl { top: 14px; left: 20px; }
-.c-tr { top: 14px; right: 20px; }
-.c-bl { bottom: 14px; left: 20px; }
-.c-br { bottom: 14px; right: 20px; }
+.tl { top: 16px; left: 24px; }
+.tr { top: 16px; right: 24px; }
+.bl { bottom: 16px; left: 24px; }
+.br { bottom: 16px; right: 24px; }
 
 #synapseCanvas {
   position: absolute;
@@ -217,107 +236,131 @@ body[data-mode="fuckedup"] .dot-live { background: var(--red); }
   pointer-events: none;
 }
 
-/* ---------------- NODI PROGETTO & VENTAGLIO MAGNETICO ---------------- */
+/* ==========================================================================
+   NODI PROGETTO: FORME CHE CAMBIANO CON LO SWITCH + HOVER SOLO IMMAGINI
+   ========================================================================== */
 .p-node {
   position: absolute;
   transform: translate(-50%, -50%);
   pointer-events: auto;
   cursor: pointer;
-  transition: opacity 0.35s ease, filter 0.35s ease;
   z-index: 6;
+  transition: opacity 0.35s ease;
 }
 
 .p-node.dimmed {
-  opacity: 0.16;
-  filter: grayscale(1);
+  opacity: 0.14;
   pointer-events: none;
 }
 
-.node-core {
-  position: relative;
-  background: var(--bg);
-  border: 2.5px solid var(--ink);
-  padding: 10px 16px;
+.node-anchor {
   display: flex;
-  flex-direction: column;
-  gap: 3px;
-  box-shadow: 4px 4px 0px var(--ink);
-  transition: transform 0.2s cubic-bezier(0.2, 0.9, 0.2, 1),
-              background 0.2s,
-              box-shadow 0.2s;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 12px;
+  background: rgba(248, 248, 246, 0.92);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(4px);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.p-node.is-main .node-core {
-  padding: 14px 22px;
-  border-width: 3px;
+/* Forma del pin interno che cambia in base a Playful / Invested / Fucked Up */
+.node-shape {
+  width: 10px;
+  height: 10px;
+  background: var(--ink);
+  flex-shrink: 0;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.p-node.is-todo .node-core {
-  border-style: dashed;
-  background: repeating-linear-gradient(
-    -45deg,
-    var(--bg),
-    var(--bg) 6px,
-    rgba(10,10,10,0.05) 6px,
-    rgba(10,10,10,0.05) 12px
-  );
+.p-node.is-main .node-shape {
+  width: 13px;
+  height: 13px;
 }
 
-.node-kicker {
+.p-node.is-todo .node-shape {
+  background: transparent;
+  border: 1px dashed var(--ink);
+}
+
+/* MORFOLOGIA 1: PLAYFUL (Cerchi & Capsule) */
+body[data-mode="playful"] .node-anchor {
+  border-radius: 999px;
+}
+body[data-mode="playful"] .node-shape {
+  border-radius: 50%;
+}
+
+/* MORFOLOGIA 2: INVESTED (Architettura Ortogonale / Quadrati) */
+body[data-mode="invested"] .node-anchor {
+  border-radius: 0px;
+}
+body[data-mode="invested"] .node-shape {
+  border-radius: 0px;
+}
+
+/* MORFOLOGIA 3: FUCKED UP (Poligoni Tagliati / Diamanti) */
+body[data-mode="fuckedup"] .node-anchor {
+  border-radius: 0px;
+  clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+}
+body[data-mode="fuckedup"] .node-shape {
+  border-radius: 0px;
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+  transform: scale(1.25);
+}
+
+/* Testo nodo sottile, piccolo e mai invadente */
+.node-info {
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+}
+
+.node-num {
   font-family: var(--mono);
-  font-size: 0.62rem;
-  font-weight: 800;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
+  font-size: 0.6rem;
+  font-weight: 300;
+  color: var(--mute);
 }
 
-.node-title {
-  font-family: var(--disp);
-  font-stretch: 62%;
-  font-variation-settings: "wdth" 62;
-  font-weight: 900;
-  font-size: 1.55rem;
-  line-height: 0.92;
+.node-name {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  font-weight: 300;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  letter-spacing: 0.01em;
+  color: var(--ink);
   white-space: nowrap;
 }
 
-.p-node.is-main .node-title {
-  font-size: 2.2rem;
+.p-node.is-main .node-name {
+  font-size: 0.86rem;
+  font-weight: 400;
 }
 
-.node-active-role {
-  font-family: var(--mono);
-  font-size: 0.64rem;
-  font-weight: 700;
-  color: var(--mute);
-  text-transform: uppercase;
-}
-
-/* Esplosione POP all'hover / aggancio magnetico */
+/* Esplosione POP discreta all'hover: colore progetto sul pin e sul filetto */
 .p-node:hover,
 .p-node.magnet-locked {
-  z-index: 25;
+  z-index: 30;
 }
 
-.p-node:hover .node-core,
-.p-node.magnet-locked .node-core {
+.p-node:hover .node-anchor,
+.p-node.magnet-locked .node-anchor {
+  border-color: var(--node-pop);
+  background: #ffffff;
+}
+
+.p-node:hover .node-shape,
+.p-node.magnet-locked .node-shape {
   background: var(--node-pop);
-  color: #0a0a0a;
-  box-shadow: 8px 8px 0px var(--ink);
+  transform: scale(1.3);
 }
 
-.p-node:hover .node-active-role,
-.p-node.magnet-locked .node-active-role {
-  color: #0a0a0a;
-}
-
-/* VENTAGLIO MAGNETICO (Carte che si aprono attorno al pin) */
-.fan-deck {
+/* ==========================================================================
+   VENTAGLIO SOLO IMMAGINI ALL'HOVER (Niente blocchi testuali giganti)
+   ========================================================================== */
+.img-fan {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -327,69 +370,79 @@ body[data-mode="fuckedup"] .dot-live { background: var(--red); }
   z-index: -1;
 }
 
-.fan-card {
+.fan-thumb {
   position: absolute;
-  width: 170px;
-  background: var(--bg);
-  border: 2px solid var(--ink);
-  box-shadow: 5px 5px 0px var(--ink);
-  padding: 8px;
+  width: 118px;
+  height: 148px;
+  background: #eaeae6;
+  border: 1.5px solid var(--node-pop);
+  overflow: hidden;
   opacity: 0;
-  transform: translate(-50%, -50%) scale(0.4) rotate(0deg);
-  transition: transform 0.32s cubic-bezier(0.18, 0.89, 0.32, 1.28),
-              opacity 0.22s ease;
+  transform: translate(-50%, -50%) scale(0.45);
+  transition: transform 0.38s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.25s ease,
+              border-radius 0.35s ease,
+              clip-path 0.35s ease;
   pointer-events: none;
 }
 
-.fan-card-tag {
+/* Le immagini nell'hover cambiano forma in base allo Switch! */
+body[data-mode="playful"] .fan-thumb {
+  border-radius: 22px;
+}
+
+body[data-mode="invested"] .fan-thumb {
+  border-radius: 0px;
+}
+
+body[data-mode="fuckedup"] .fan-thumb {
+  border-radius: 0px;
+  clip-path: polygon(14% 0%, 100% 0%, 86% 100%, 0% 100%);
+}
+
+.fan-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: contrast(1.03);
+}
+
+.fan-thumb-badge {
+  position: absolute;
+  bottom: 6px;
+  left: 6px;
+  background: rgba(18, 18, 18, 0.78);
+  color: #fff;
   font-family: var(--mono);
-  font-size: 0.58rem;
-  font-weight: 800;
-  background: var(--node-pop);
-  color: #0a0a0a;
+  font-size: 0.52rem;
+  font-weight: 300;
   padding: 2px 5px;
-  display: inline-block;
-  margin-bottom: 5px;
-  border: 1px solid var(--ink);
+  letter-spacing: 0.05em;
   text-transform: uppercase;
 }
 
-.fan-card-title {
-  font-family: var(--disp);
-  font-stretch: 70%;
-  font-weight: 900;
-  font-size: 0.95rem;
-  line-height: 1;
-  text-transform: uppercase;
-  margin-bottom: 4px;
-  color: var(--ink);
-}
-
-.fan-card-desc {
-  font-size: 0.68rem;
-  line-height: 1.25;
-  color: var(--ink);
-  font-weight: 600;
-}
-
-.p-node:hover .fan-card,
-.p-node.magnet-locked .fan-card {
+.p-node:hover .fan-thumb,
+.p-node.magnet-locked .fan-thumb {
   opacity: 1;
 }
 
-/* ---------------- BOTTOM HUD: INNER THOUGHTS & SEMAFORO ---------------- */
+/* ==========================================================================
+   BOTTOM BAR — INNER THOUGHTS & SWITCH SEMAFORO MINIMAL
+   ========================================================================== */
 .hud-bottom {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  height: 58px;
-  background: var(--bg);
-  border-top: 2px solid var(--ink);
+  height: 46px;
+  background: rgba(248, 248, 246, 0.92);
+  backdrop-filter: blur(8px);
+  border-top: 1px solid var(--border);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 20px;
+  padding: 0 24px;
   z-index: 40;
   gap: 20px;
 }
@@ -397,26 +450,25 @@ body[data-mode="fuckedup"] .dot-live { background: var(--red); }
 .inner-thoughts {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
   flex: 1;
   min-width: 0;
   overflow: hidden;
 }
 
-.thought-tag {
+.thought-prefix {
   font-family: var(--mono);
-  font-size: 0.72rem;
-  font-weight: 800;
-  background: var(--ink);
-  color: var(--bg);
-  padding: 4px 8px;
+  font-size: 0.68rem;
+  font-weight: 300;
+  color: var(--mute);
   white-space: nowrap;
 }
 
 .thought-stream {
-  font-family: var(--mono);
-  font-size: 0.82rem;
-  font-weight: 700;
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  font-weight: 300;
+  color: var(--ink);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -425,46 +477,49 @@ body[data-mode="fuckedup"] .dot-live { background: var(--red); }
 .mode-switch {
   display: flex;
   align-items: center;
-  border: 2px solid var(--ink);
-  background: var(--bg);
+  gap: 6px;
 }
 
 .m-btn {
   background: transparent;
-  border: 0;
-  border-right: 2px solid var(--ink);
-  padding: 8px 14px;
-  display: flex;
+  border: 1px solid var(--border);
+  padding: 4px 11px;
+  display: inline-flex;
   align-items: center;
-  gap: 7px;
+  gap: 6px;
   font-family: var(--mono);
-  font-size: 0.72rem;
-  font-weight: 800;
+  font-size: 0.66rem;
+  font-weight: 300;
+  color: var(--mute);
   cursor: pointer;
-  color: var(--ink);
-  transition: background 0.15s;
+  transition: all 0.25s ease;
 }
 
-.m-btn:last-child {
-  border-right: 0;
+body[data-mode="playful"] .m-btn { border-radius: 999px; }
+body[data-mode="invested"] .m-btn { border-radius: 0px; }
+body[data-mode="fuckedup"] .m-btn {
+  clip-path: polygon(5px 0%, 100% 0%, calc(100% - 5px) 100%, 0% 100%);
 }
 
-.m-btn .light {
-  width: 10px;
-  height: 10px;
+.m-btn .dot {
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
-  border: 1.5px solid var(--ink);
 }
 
-.l-green { background: var(--green); }
-.l-yellow { background: var(--yellow); }
-.l-red { background: var(--red); }
+.d-green { background: var(--green); }
+.d-yellow { background: var(--yellow); }
+.d-red { background: var(--red); }
 
-.m-btn.on[data-set-mode="playful"] { background: var(--green); color: #0a0a0a; }
-.m-btn.on[data-set-mode="invested"] { background: var(--yellow); color: #0a0a0a; }
-.m-btn.on[data-set-mode="fuckedup"] { background: var(--red); color: #ffffff; }
+.m-btn.on {
+  border-color: var(--ink);
+  color: var(--ink);
+  background: #fff;
+}
 
-/* ---------------- STUDY DRAWER (SCHEDA STUDIO APPROFONDITA) ---------------- */
+/* ==========================================================================
+   STUDY DRAWER — BERLIN GALLERY SHEET
+   ========================================================================== */
 .study-drawer {
   position: fixed;
   inset: 0;
@@ -481,7 +536,7 @@ body[data-mode="fuckedup"] .dot-live { background: var(--red); }
 .drawer-backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(10, 10, 10, 0.45);
+  background: rgba(18, 18, 18, 0.22);
   opacity: 0;
   transition: opacity 0.3s ease;
 }
@@ -492,12 +547,12 @@ body[data-mode="fuckedup"] .dot-live { background: var(--red); }
 
 .drawer-panel {
   position: relative;
-  width: min(760px, 94vw);
+  width: min(680px, 92vw);
   height: 100%;
   background: var(--bg);
-  border-left: 3px solid var(--ink);
+  border-left: 1px solid var(--ink);
   transform: translateX(102%);
-  transition: transform 0.38s cubic-bezier(0.19, 1, 0.22, 1);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   display: flex;
   flex-direction: column;
   z-index: 2;
@@ -508,197 +563,177 @@ body[data-mode="fuckedup"] .dot-live { background: var(--red); }
 }
 
 .drawer-hd {
-  padding: 18px 24px;
-  border-bottom: 2.5px solid var(--ink);
+  height: 52px;
+  padding: 0 28px;
+  border-bottom: 1px solid var(--border);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: var(--drawer-pop, var(--bg));
-}
-
-.drawer-id {
-  font-family: var(--mono);
-  font-size: 0.75rem;
-  font-weight: 800;
-  display: block;
-}
-
-.drawer-roles {
   font-family: var(--mono);
   font-size: 0.68rem;
-  font-weight: 700;
-  opacity: 0.85;
+  font-weight: 300;
+  color: var(--mute);
+}
+
+.drawer-meta {
+  display: flex;
+  gap: 12px;
 }
 
 .drawer-close {
-  background: var(--ink);
-  color: var(--bg);
-  border: 0;
-  padding: 8px 14px;
+  background: none;
+  border: 1px solid var(--border);
+  padding: 4px 10px;
   font-family: var(--mono);
-  font-weight: 800;
-  font-size: 0.75rem;
+  font-size: 0.66rem;
+  font-weight: 300;
   cursor: pointer;
+}
+
+.drawer-close:hover {
+  border-color: var(--ink);
 }
 
 .drawer-body {
-  padding: 28px 24px 60px;
+  padding: 36px 28px 64px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 28px;
 }
 
 .dw-title {
-  font-family: var(--disp);
-  font-stretch: 62%;
-  font-variation-settings: "wdth" 62;
-  font-weight: 900;
-  font-size: clamp(3rem, 7vw, 5.2rem);
-  line-height: 0.86;
+  font-weight: 200;
+  font-size: clamp(2rem, 4.5vw, 3.1rem);
+  letter-spacing: 0.04em;
+  line-height: 1.05;
   text-transform: uppercase;
+  border-left: 3px solid var(--drawer-pop, var(--ink));
+  padding-left: 16px;
 }
 
-.dw-voice-box {
-  border: 2.5px solid var(--ink);
+.dw-copy {
+  font-size: 0.96rem;
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--ink);
+  max-width: 60ch;
+}
+
+.dw-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+}
+
+.dw-fig {
+  border: 1px solid var(--border);
+  background: #fff;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+body[data-mode="playful"] .dw-fig { border-radius: 16px; }
+body[data-mode="invested"] .dw-fig { border-radius: 0px; }
+body[data-mode="fuckedup"] .dw-fig {
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%);
+}
+
+.dw-fig img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+}
+
+.dw-fig figcaption {
+  padding: 10px 12px;
+  font-size: 0.75rem;
+  font-weight: 300;
+  border-top: 1px solid var(--hairline);
+}
+
+.dw-fig figcaption b {
+  display: block;
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  font-weight: 400;
+  color: var(--mute);
+  text-transform: uppercase;
+  margin-bottom: 3px;
+}
+
+/* Modulo studio interattivo (Marsea / Tipule) in stile minimale */
+.study-module {
+  border: 1px solid var(--border);
   padding: 18px;
   background: #fff;
-  box-shadow: 6px 6px 0px var(--ink);
 }
 
-.dw-voice-label {
+.study-module h4 {
   font-family: var(--mono);
-  font-size: 0.68rem;
-  font-weight: 800;
+  font-size: 0.65rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  margin-bottom: 8px;
-  display: inline-block;
-  padding: 2px 6px;
-  background: var(--drawer-pop);
-  border: 1px solid var(--ink);
-}
-
-.dw-voice-copy {
-  font-size: 1.05rem;
-  font-weight: 700;
-  line-height: 1.45;
-}
-
-/* Widget interattivi specifici per progetto (es. Marsea Body Loop & Tipule Year Switch) */
-.interactive-study-box {
-  border: 2px solid var(--ink);
-  padding: 16px;
-  background: rgba(10,10,10,0.03);
-}
-
-.interactive-study-box h4 {
-  font-family: var(--mono);
-  font-size: 0.75rem;
-  text-transform: uppercase;
+  color: var(--mute);
   margin-bottom: 12px;
 }
 
-.loop-pills {
+.pill-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 6px;
   margin-bottom: 12px;
 }
 
-.loop-pill {
-  border: 2px solid var(--ink);
-  background: var(--bg);
-  padding: 6px 12px;
+.s-pill {
+  background: transparent;
+  border: 1px solid var(--border);
+  padding: 5px 10px;
   font-family: var(--mono);
-  font-size: 0.72rem;
-  font-weight: 800;
+  font-size: 0.65rem;
+  font-weight: 300;
   cursor: pointer;
 }
 
-.loop-pill.active {
+.s-pill.active {
+  border-color: var(--ink);
   background: var(--ink);
-  color: var(--bg);
+  color: #fff;
 }
 
-.loop-preview {
-  padding: 16px;
-  border: 2px solid var(--ink);
-  font-weight: 700;
-  font-size: 0.92rem;
-  transition: background 0.25s, color 0.25s;
-}
-
-.dw-outputs-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-  gap: 14px;
-}
-
-.dw-output-card {
-  border: 2px solid var(--ink);
+.s-preview {
   padding: 14px;
-  background: #fff;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 10px;
+  font-size: 0.82rem;
+  font-weight: 300;
+  border: 1px solid var(--hairline);
 }
 
-.dw-output-card b {
-  font-family: var(--mono);
-  font-size: 0.68rem;
-  text-transform: uppercase;
-  background: var(--drawer-pop);
-  padding: 2px 6px;
-  align-self: flex-start;
-  border: 1px solid var(--ink);
-}
-
-.dw-output-card h5 {
-  font-family: var(--disp);
-  font-stretch: 68%;
-  font-size: 1.3rem;
-  text-transform: uppercase;
-  line-height: 0.95;
-}
-
-.dw-output-card p {
-  font-size: 0.84rem;
-  color: var(--mute);
-  font-weight: 600;
-}
-
-.dw-ext-links {
+.dw-links {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 8px;
 }
 
-.dw-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: var(--ink);
-  color: var(--bg);
-  text-decoration: none;
+.dw-a {
   font-family: var(--mono);
-  font-size: 0.75rem;
-  font-weight: 800;
-  padding: 10px 16px;
-  border: 2px solid var(--ink);
-  transition: transform 0.15s, background 0.15s, color 0.15s;
+  font-size: 0.7rem;
+  font-weight: 300;
+  color: var(--ink);
+  text-decoration: none;
+  border: 1px solid var(--ink);
+  padding: 8px 14px;
+  transition: background 0.2s, color 0.2s;
 }
 
-.dw-link:hover {
-  background: var(--drawer-pop);
-  color: #0a0a0a;
-  transform: translate(-2px, -2px);
-  box-shadow: 4px 4px 0px var(--ink);
+.dw-a:hover {
+  background: var(--drawer-pop, var(--ink));
+  border-color: var(--drawer-pop, var(--ink));
+  color: #111;
 }
 
 @media (max-width: 820px) {
-  .brand-sub, .coord { display: none; }
-  .p-node .node-title { font-size: 1.2rem; }
-  .p-node.is-main .node-title { font-size: 1.55rem; }
-  .thought-tag { display: none; }
+  .c-mark, .thought-prefix { display: none; }
+  .fan-thumb { width: 88px; height: 110px; }
 }

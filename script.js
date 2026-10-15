@@ -1,83 +1,82 @@
 document.addEventListener('DOMContentLoaded', () => {
   /* ==========================================================================
-     1. DATABASE DEI 10 NODI (PROGETTI + STUDIO + 3 TONI DI VOCE + FILTRI)
+     1. DATABASE DEI 10 NODI (IMMAGINI PER FILTRO + STUDIO + 3 TONI)
      ========================================================================== */
   const NODES_DATA = [
     {
       id: 'tipule',
-      code: '01 // MAIN HUB',
-      title: 'TIPULE FEST',
+      code: '01',
+      title: 'Tipule Fest',
       isMain: true,
       color: '#FE76FE',
-      xPct: 0.24,
+      xPct: 0.23,
       yPct: 0.30,
       roles: ['art-direction', 'graphic', 'video', 'pm'],
       connections: ['marsea', 'siamo', 'janaki'],
       thoughts: {
-        playful: 'Un festival gratis in Salento per chi non se n’è mai voluto andare. Sì, cambiamo faccia ogni anno.',
-        invested: '800+ presenze al debutto, 48k+ views organiche con 0€ ADV, 2 palchi a incastro e modello H2O APS a budget 6.000€.',
-        fuckedup: 'Nel 2026 abbiamo lavorato sul fastidio visivo: tipografia sbattuta a tutto schermo contro l’immobilismo estivo.'
+        playful: 'tipule fest — cambia identità ogni anno per chi non se n’è mai voluto andare.',
+        invested: 'tipule fest — 800+ presenze, 48k views organiche (0€ adv), doppio palco a incastro e business plan 6.000€ con H2O APS.',
+        fuckedup: 'tipule fest 2026 — lavorare sul fastidio visivo in rosa #FE76FE per scuotere l’estate salentina.'
       },
       copy: {
-        playful: 'Per chi non se n’è mai voluto andare. Un festival gratuito nel borgo fortificato di Acaya che cambia identità visiva ogni anno per dare fastidio alla solita estate salentina.',
-        invested: 'Laboratorio di innovazione sociale e culturale nel Borgo di Acaya (LE) contro la diaspora artistica giovanile. Strutturato su 2 palchi coordinati (Main Stage + Palco 2 Jam Session / Spazio Agorà) per annullare i tempi morti, con oltre 15 artisti, 800+ partecipanti nella prima edizione e sostenibilità garantita tramite H2O APS.',
-        fuckedup: 'Fare un festival gratis in Puglia senza vendere un rene: nella prima edizione abbiamo acceso la miccia, nel 2026 abbiamo scelto il "fastidio visivo" con tipografia compressa a tutto schermo e zero compromessi sulla linea artistica.'
+        playful: 'Per chi non se n’è mai voluto andare. Un festival gratuito nel borgo fortificato di Acaya che muta pelle ogni anno.',
+        invested: 'Laboratorio di innovazione sociale e culturale nel Borgo di Acaya (LE) contro la diaspora artistica giovanile. 15+ artisti su 2 palchi coordinati (Main Stage + Palco 2 Jam Session / Spazio Agorà), 800+ partecipanti nella prima edizione e sostenibilità garantita tramite H2O APS.',
+        fuckedup: 'Fare un festival gratuito in Puglia senza compromessi commerciali: nel 2026 abbiamo scelto il "fastidio visivo" e il rosa #FE76FE.'
       },
-      outputsByRole: {
+      mediaByRole: {
         'art-direction': [
-          { tag: 'Art Direction', title: 'Mutazione 2025 → 2026', desc: 'Identità cangiante annuale: dal lancio pilota al "fastidio visivo" 2026 in rosa #FE76FE e tipografia full-bleed.' },
-          { tag: 'Art Direction', title: 'Ecosistema Largo Castello', desc: 'Direzione visiva e segnaletica per Doppio Palco, Spazio Agorà e area artigiani.' }
+          { tag: 'Art Direction', title: 'Identità Mutante 2026', img: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=500&auto=format&fit=crop&q=80' },
+          { tag: 'Art Direction', title: 'Largo Castello Setup', img: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=500&auto=format&fit=crop&q=80' }
         ],
         'graphic': [
-          { tag: 'Visual & Graphic', title: 'Campagna "Siamo in ritardo / Che Palle"', desc: 'Caroselli IG ad alto contrasto tipografico pensati per interrompere lo scroll passivo.' },
-          { tag: 'Visual & Graphic', title: 'Locandina Tipule x Surf', desc: 'Poster e declinazione grafica per lo spin-off al Surf Bar.' }
+          { tag: 'Graphic', title: 'Post "Siamo in ritardo"', img: 'https://images.unsplash.com/photo-1558655146-d09347e92766?w=500&auto=format&fit=crop&q=80' },
+          { tag: 'Graphic', title: 'Poster Tipule x Surf', img: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=500&auto=format&fit=crop&q=80' }
         ],
         'video': [
-          { tag: 'Video', title: 'Reel Tipule x Surf', desc: 'Montaggio serrato e ritmo visivo per il lancio dell’evento.' },
-          { tag: 'Video', title: 'Teaser "Vecchi che fanno cose"', desc: 'Short video ironici di annuncio lineup radicata nel territorio.' }
+          { tag: 'Video', title: 'Reel Tipule x Surf', img: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=500&auto=format&fit=crop&q=80' }
         ],
         'pm': [
-          { tag: 'Project Management', title: 'Business Plan & Pitch 6.000€', desc: 'Allocazione budget (Service 2k€, Direzione Artistica 3k€, Allestimenti, Sicurezza) e breakeven con H2O APS.' },
-          { tag: 'Project Management', title: 'Architettura Doppio Palco', desc: 'Incastro di 15+ rider tecnici tra Main Stage e Jam Session senza tempi morti.' }
+          { tag: 'Project Mgmt', title: 'Business Plan 6k€ & 2 Palchi', img: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=500&auto=format&fit=crop&q=80' }
         ]
       },
       interactiveType: 'tipule-editions',
       links: [
-        { label: 'Instagram @tipulefest ↗', url: 'https://www.instagram.com/tipulefest/' }
+        { label: 'instagram @tipulefest ↗', url: 'https://www.instagram.com/tipulefest/' }
       ]
     },
     {
       id: 'marsea',
-      code: '02 // MAIN HUB',
-      title: 'MARSEA',
+      code: '02',
+      title: 'Marsea',
       isMain: true,
       color: '#5AD683',
-      xPct: 0.52,
-      yPct: 0.24,
+      xPct: 0.50,
+      yPct: 0.23,
       roles: ['art-direction', 'photo', 'graphic', 'video'],
       connections: ['tipule', 'janaki', 'morireperte'],
       thoughts: {
-        playful: 'Smontare un’artista pezzo per pezzo (letteralmente: occhio, mani, ombelico, spalla) e ricomporla in un EP.',
-        invested: 'Sistema seriale per 4 singoli + EP: catena cromatica duotone concatenata e progressione anatomica.',
-        fuckedup: 'Vietato fare la solita cover con la faccia al centro e il font grazioso. Ogni uscita doveva alzare l’asticella tecnica.'
+        playful: 'marsea — 4 parti del corpo e 4 duotone concatenati per ricomporre un’identità.',
+        invested: 'marsea — direzione artistica seriale: viso (rosa-verde), mani (verde-blu), ombelico (blu-giallo), spalla (giallo-rosa) ed EP.',
+        fuckedup: 'marsea — smontare l’immaginario dell’artista pezzo per pezzo senza mai ripetersi.'
       },
       copy: {
-        playful: 'Un dialogo interno con la propria identità frammentata. 4 singoli, 4 parti del corpo, 4 duotone incatenati tra loro fino al bianco totale dell’EP.',
-        invested: 'Direzione artistica integrale per il percorso discografico di Marsea. L’identità viene esplorata tramite gli archetipi di rinascita, luna, sole e stelle: ogni singolo isola un dettaglio anatomico e passa il testimone cromatico al successivo in un loop continuo.',
-        fuckedup: 'La vera sfida è stata imporsi una gabbia concettuale ferrea — cambiare sempre pur restando nello stesso universo — costringendosi a sperimentare tecniche nuove a ogni release.'
+        playful: 'Un dialogo interno con la propria identità frammentata attraverso stelle, sole, luna e fiori. Ogni singolo isola un dettaglio anatomico in un loop cromatico continuo.',
+        invested: 'Sistema visivo seriale per 4 singoli + EP: si parte dal viso/occhio con Rifiorire (rosa-verde), le mani per la luna (verde-blu), l’ombelico per il sole (blu-giallo), la spalla per le stelle (giallo-rosa) e la figura intera su bianco per l’EP finale.',
+        fuckedup: 'La sfida di fare sempre qualcosa di nuovo a ogni singolo, usando il vincolo anatomico e cromatico per alzare costantemente il livello tecnico.'
       },
-      outputsByRole: {
+      mediaByRole: {
         'art-direction': [
-          { tag: 'Art Direction', title: 'Il Loop Duotone & Anatomico', desc: 'Rosa-Verde (Occhio) → Verde-Blu (Mani) → Blu-Giallo (Ombelico) → Giallo-Rosa (Spalla) → Bianco + Accenti (EP).' }
+          { tag: 'Art Direction', title: 'EP Identità Frammentata', img: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500&auto=format&fit=crop&q=80' },
+          { tag: 'Art Direction', title: 'Rifiorire (Duotone Loop)', img: 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?w=500&auto=format&fit=crop&q=80' }
         ],
         'photo': [
-          { tag: 'Photo', title: 'Shooting Naturali & Frammenti', desc: 'Sessioni fotografiche organiche focalizzate sulla fisicità e sul dettaglio epidermico.' }
+          { tag: 'Photo', title: 'Shooting Naturale', img: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&auto=format&fit=crop&q=80' }
         ],
         'graphic': [
-          { tag: 'Visual & Graphic', title: 'Caroselli Narrativi IG', desc: 'Impaginati social che traducono il dialogo interiore dei brani in sequenze visive.' }
+          { tag: 'Graphic', title: 'Caroselli Instagram', img: 'https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?w=500&auto=format&fit=crop&q=80' }
         ],
         'video': [
-          { tag: 'Video', title: 'Reel & Visual Loop', desc: 'Contenuti verticali e canvas in movimento per accompagnare l’uscita dei singoli.' }
+          { tag: 'Video', title: 'Reel & Visual Canvas', img: 'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=500&auto=format&fit=crop&q=80' }
         ]
       },
       interactiveType: 'marsea-loop',
@@ -85,109 +84,110 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     {
       id: 'siamo',
-      code: '03 // MAIN HUB',
-      title: 'SIAMOUNMAGAZINE',
+      code: '03',
+      title: 'SiamoUnMagazine',
       isMain: true,
       color: '#E82A1C',
-      xPct: 0.77,
-      yPct: 0.34,
+      xPct: 0.78,
+      yPct: 0.32,
       roles: ['copywriting', 'graphic', 'video', 'photo'],
       connections: ['tipule', '2colon', 'morireperte'],
       thoughts: {
-        playful: '100+ creativi in fissa con la musica che provano a disintossicare l’industria.',
-        invested: 'Produzione editoriale cross-mediale: articoli, interviste, shooting e grafiche in un network di oltre 100 professionisti.',
-        fuckedup: 'L’industria musicale è piena di plastica e marchette. Qui ci sporchiamo le mani in 4 ruoli diversi per raccontare chi spacca davvero.'
+        playful: 'siamounmagazine — 100+ creativi al lavoro per rendere l’industria musicale meno tossica.',
+        invested: 'siamounmagazine — produzione multidisciplinare tra articoli, grafica, foto e video-interviste.',
+        fuckedup: 'siamounmagazine — contro le dinamiche tossiche della discografia, sporcandosi le mani sul campo.'
       },
       copy: {
-        playful: 'Un calderone di oltre 100 teste creative. Scrivo articoli, scatto foto, monto video e impagino grafiche per raccontare la scena musicale senza filtri.',
-        invested: 'All’interno della redazione di Siamo Un Magazine opero in modo trasversale tra Copywriting, Graphic Design, Fotografia e Videomaking, accogliendo stimoli continui in una community impegnata a rendere il settore musicale meno tossico e più meritocratico.',
-        fuckedup: 'Saltare dalla scrittura di un pezzo sull’UK clubbing al set fotografico di un live fino all’impaginazione grafica: zero compartimenti stagni, solo fame di cultura reale.'
+        playful: 'Accogliere gli stimoli cimentandosi in ruoli diversi dentro una community di oltre 100 creativi indipendenti.',
+        invested: 'Attività trasversale di Copywriting, Graphic Design, Fotografia e Videomaking all’interno di Siamo Un Magazine, con focus sulla scena emergente e underground.',
+        fuckedup: 'Lavorare in una rete di 100+ teste per rendere l’industria musicale un posto meno tossico e più autentico.'
       },
-      outputsByRole: {
+      mediaByRole: {
         'copywriting': [
-          { tag: 'Copywriting', title: 'Articoli & Approfondimenti Scena', desc: 'Analisi verticali, recensioni e interviste su musica underground, indie, rap ed elettronica.' }
+          { tag: 'Copywriting', title: 'Articoli & Recensioni', img: 'https://images.unsplash.com/photo-1457369804613-52c61a468e7d?w=500&auto=format&fit=crop&q=80' }
         ],
         'graphic': [
-          { tag: 'Visual & Graphic', title: 'Caroselli & Layout Editoriali', desc: 'Progettazione grafica per rubriche social e approfondimenti testuali.' }
+          { tag: 'Graphic', title: 'Layout & Rubriche IG', img: 'https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=500&auto=format&fit=crop&q=80' }
         ],
         'photo': [
-          { tag: 'Photo', title: 'Ritratti & Reportage Live', desc: 'Fotografia sul campo e ritrattistica per gli artisti intervistati dalla redazione.' }
+          { tag: 'Photo', title: 'Reportage & Ritratti', img: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=500&auto=format&fit=crop&q=80' }
         ],
         'video': [
-          { tag: 'Video', title: 'Video Interviste & Format', desc: 'Ripresa e montaggio di format video (Mushroom Studio, Lamamma, vox pop).' }
+          { tag: 'Video', title: 'Interviste Studio & Live', img: 'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=500&auto=format&fit=crop&q=80' }
         ]
       },
       links: []
     },
     {
       id: 'scroccup',
-      code: '04 // MAIN HUB',
-      title: 'SCROCCUP',
+      code: '04',
+      title: 'ScroccUp',
       isMain: true,
       color: '#F26432',
-      xPct: 0.28,
+      xPct: 0.27,
       yPct: 0.72,
       roles: ['graphic', 'ui-ux'],
       connections: ['simulacra', 'sacraterra'],
       thoughts: {
-        playful: 'Trasformare l’arte universitaria dello "scroccare" in un’app di food-sharing per collegiali.',
-        invested: 'Case study UX/UI completa su Behance + Prototipo Figma interattivo + Video pitch su Vimeo.',
-        fuckedup: 'Basta app contro lo spreco alimentare che sembrano disegnate da un ministero. L’abbiamo chiamata ScroccUp.'
+        playful: 'scroccup — l’app di food-sharing che salva il frigo dei collegiali.',
+        invested: 'scroccup — ricerca quantitativa, brand identity #F26432, prototipo Figma e video pitch Vimeo.',
+        fuckedup: 'scroccup — trasformare lo "scrocco" universitario in un sistema anti-spreco.'
       },
       copy: {
-        playful: 'L’app di food-sharing pensata per i collegiali: condividi quello che ti avanza in frigo prima che scada, salva la cena al vicino di stanza e azzera gli sprechi.',
-        invested: 'Progetto completo di Brand Identity e UX/UI Design basato su ricerca quantitativa tra gli studenti universitari a Torino. Include architettura dell’informazione, design system arancio #F26432 ad alta leggibilità, prototipo navigabile su Figma e video di presentazione.',
-        fuckedup: 'Abbiamo preso il frigo semivuoto dei fuori sede e il concetto tabù dello "scrocco" per farne un ecosistema di community gamificato, diretto e visivamente pop.'
+        playful: 'L’app di food-sharing per i collegiali: condividi gli ingredienti in scadenza e cucina insieme.',
+        invested: 'Progetto UX/UI e Brand Identity completo: analisi quantitativa nei collegi universitari, design system arancio #F26432, prototipo interattivo Figma e presentazione video su Vimeo.',
+        fuckedup: 'Un’app contro lo spreco alimentare che parla finalmente la lingua vera degli studenti fuori sede.'
       },
-      outputsByRole: {
+      mediaByRole: {
         'graphic': [
-          { tag: 'Visual & Graphic', title: 'Brand Identity & Naming', desc: 'Sistema visivo pop #F26432, tone of voice irriverente e presentazione Behance.' }
+          { tag: 'Graphic', title: 'Brand Identity #F26432', img: 'https://images.unsplash.com/photo-1551650975-87deedd944c3?w=500&auto=format&fit=crop&q=80' }
         ],
         'ui-ux': [
-          { tag: 'UI/UX', title: 'Prototipo Interattivo Figma', desc: 'Flussi completi di onboarding, caricamento dispensa, match tra collegiali e ritiro.' },
-          { tag: 'UI/UX', title: 'User Research & Video Pitch', desc: 'Analisi dei bisogni nei collegi e storytelling funzionale su Vimeo.' }
+          { tag: 'UI/UX', title: 'Prototipo Figma', img: 'https://images.unsplash.com/photo-1618761714954-0b8cd0026356?w=500&auto=format&fit=crop&q=80' },
+          { tag: 'UI/UX', title: 'Flussi & User Research', img: 'https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?w=500&auto=format&fit=crop&q=80' }
         ]
       },
       links: [
-        { label: 'Behance Case Study ↗', url: 'https://www.behance.net/gallery/252607759/SCROCCUP-LApp-di-FoodSharing-per-i-Collegiali' },
-        { label: 'Prototipo Figma ↗', url: 'https://www.figma.com/proto/f1GJ20X1AQEuw38pNFJIYU/PROTOTIPO_SCROCCUP?content-scaling=fixed&kind=proto&node-id=10-5976&page-id=1%3A3&scaling=scale-down&starting-point-node-id=10%3A5976' },
-        { label: 'Video Vimeo ↗', url: 'https://vimeo.com/1209626682?fl=pl&fe=sh' }
+        { label: 'behance case study ↗', url: 'https://www.behance.net/gallery/252607759/SCROCCUP-LApp-di-FoodSharing-per-i-Collegiali' },
+        { label: 'figma prototype ↗', url: 'https://www.figma.com/proto/f1GJ20X1AQEuw38pNFJIYU/PROTOTIPO_SCROCCUP?content-scaling=fixed&kind=proto&node-id=10-5976&page-id=1%3A3&scaling=scale-down&starting-point-node-id=10%3A5976' },
+        { label: 'vimeo pitch ↗', url: 'https://vimeo.com/1209626682?fl=pl&fe=sh' }
       ]
     },
     {
       id: 'insincrono',
-      code: '05 // SATELLITE',
+      code: '05',
       title: 'IN|SINCRONO',
       isMain: false,
-      color: '#6A1B9A',
+      color: '#4A148C',
       xPct: 0.48,
-      yPct: 0.56,
+      yPct: 0.54,
       roles: ['photo', 'art-direction'],
       connections: ['simulacra', 'marsea', 'janaki'],
       thoughts: {
-        playful: 'Fotografia tradizionale fusa con media digitali fluidi e musica elettronica sperimentale.',
-        invested: 'Ricerca visiva tra fotografia, estetica post-internet e live art direction audioreattiva.',
-        fuckedup: 'Quando la foto statica non basta più e devi farla collidere con il suono elettronico dal vivo.'
+        playful: 'in|sincrono — fotografia tradizionale fusa con media digitali audioreattivi.',
+        invested: 'in|sincrono — ricerca post-internet e live art direction con collettivo elettronico sperimentale.',
+        fuckedup: 'in|sincrono — far collidere lo scatto fotografico con le frequenze live.'
       },
       copy: {
-        playful: 'Fusione tra fotografia tradizionale e media digitali fluidi e audioreattivi insieme al collettivo elettronico IN|SINCRONO.',
-        invested: 'La collaborazione con IN|SINCRONO — collettivo radicato nell’estetica post-internet e nella musica elettronica sperimentale — ha catalizzato la mia cifra stilistica: tradurre la fotografia in live art direction consapevole e ad alto impatto.',
-        fuckedup: 'Portare la ricerca fotografica dentro un ecosistema clubbing post-internet dove suono, glitch e luce dialogano dal vivo.'
+        playful: 'Fusione tra fotografia tradizionale e media digitali fluidi e audioreattivi con il collettivo IN|SINCRONO.',
+        invested: 'My signature style emerges from the fusion of traditional photography and fluid, audio-reactive digital media. Collaboration with IN|SINCRONO, rooted in post-internet aesthetics and experimental electronic music.',
+        fuckedup: 'Tradurre la visione fotografica personale in live art direction ad alto impatto.'
       },
-      outputsByRole: {
+      mediaByRole: {
         'photo': [
-          { tag: 'Photo', title: 'Post-Internet Live Photography', desc: 'Scatti ibridati con estetica digitale fluida e sperimentazione elettronica.' }
+          { tag: 'Photo', title: 'Post-Internet Aesthetics', img: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=500&auto=format&fit=crop&q=80' },
+          { tag: 'Photo', title: 'Live Electronic Visuals', img: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=500&auto=format&fit=crop&q=80' }
         ],
         'art-direction': [
-          { tag: 'Art Direction', title: 'Audio-Reactive Visual Research', desc: 'Traduzione della visione fotografica in direzione artistica live.' }
+          { tag: 'Art Direction', title: 'Audio-Reactive Direction', img: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=500&auto=format&fit=crop&q=80' }
         ]
       },
       links: []
     },
     {
       id: 'simulacra',
-      code: '06 // SATELLITE',
-      title: 'SIMULACRA',
+      code: '06',
+      title: 'Simulacra',
       isMain: false,
       color: '#3D9DD5',
       xPct: 0.14,
@@ -195,175 +195,176 @@ document.addEventListener('DOMContentLoaded', () => {
       roles: ['photo', 'art-direction'],
       connections: ['insincrono', 'scroccup'],
       thoughts: {
-        playful: 'Abiti fatti di texture alimentari fotografati dentro un autolavaggio industriale. Lucrezio approverebbe.',
-        invested: 'Shooting editoriale per tesi Fashion Design NABA: contrasto radicale tra texture organiche e spazio industriale.',
-        fuckedup: 'Mettere vestiti commestibili e sensoriali sotto i rulli di un car wash. Cortocircuito visivo puro.'
+        playful: 'simulacra — abiti fatti di texture alimentari fotografati in un autolavaggio.',
+        invested: 'simulacra — editorial shooting per tesi Fashion Design NABA ispirato a Lucrezio.',
+        fuckedup: 'simulacra — cortocircuito sensoriale tra materia organica e car wash industriale.'
       },
       copy: {
-        playful: 'Shooting editoriale per una tesi di Fashion Design NABA: abiti creati con texture di cibo portati dentro il gelo industriale di un autolavaggio.',
-        invested: 'Traduzione visiva concettuale ispirata ai "simulacra" di Lucrezio. Gli abiti, realizzati interamente con texture alimentari ed elementi sensoriali, entrano in collisione con un ambiente alieno e meccanico: un car wash.',
-        fuckedup: 'Organico contro sintetico: esaltare la materia deperibile del cibo sbattendola tra schiuma chimica, lamiere bagnate e neon di un autolavaggio.'
+        playful: 'Shooting editoriale per tesi NABA: abiti creati con texture di cibo dentro il gelo meccanico di un car wash.',
+        invested: 'Editorial shooting for a Fashion Design thesis at NABA. Conceptual visual translation inspired by Lucretius’ simulacra, featuring garments crafted entirely from food textures inside a car wash.',
+        fuckedup: 'Contrasto radicale: texture organiche e sensoriali sbattute dentro l’architettura aliena di un autolavaggio.'
       },
-      outputsByRole: {
+      mediaByRole: {
         'photo': [
-          { tag: 'Photo', title: 'Car Wash Editorial Shooting', desc: 'Ritratti e dettagli materici ad alto contrasto tra texture organiche e architettura industriale.' }
+          { tag: 'Photo', title: 'Car Wash Editorial I', img: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?w=500&auto=format&fit=crop&q=80' },
+          { tag: 'Photo', title: 'Sensory Food Textures', img: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=500&auto=format&fit=crop&q=80' }
         ],
         'art-direction': [
-          { tag: 'Art Direction', title: 'Lucretius’ Simulacra Concept', desc: 'Costruzione del cortocircuito sensoriale location/styling per tesi NABA.' }
+          { tag: 'Art Direction', title: 'NABA Thesis Concept', img: 'https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=500&auto=format&fit=crop&q=80' }
         ]
       },
       links: []
     },
     {
       id: 'janaki',
-      code: '07 // SATELLITE',
-      title: 'JANAKI',
+      code: '07',
+      title: 'Janaki',
       isMain: false,
-      color: '#B388FF',
-      xPct: 0.64,
-      yPct: 0.48,
+      color: '#9575CD',
+      xPct: 0.63,
+      yPct: 0.47,
       roles: ['video'],
       connections: ['tipule', 'marsea', 'morireperte', 'insincrono'],
       thoughts: {
-        playful: 'Un singolo ("Grafite") e due live session ("Alibi" e "Antidoto") dove la camera respira insieme alla musica.',
-        invested: 'Produzione video per il singolo "Grafite" e regia/riprese delle live session "Alibi" e "Antidoto".',
-        fuckedup: 'Catturare la tensione emotiva di "Alibi" e "Antidoto" dal vivo senza far sembrare il video un saggio scolastico.'
+        playful: 'janaki — video per il singolo "Grafite" + live session di "Alibi" e "Antidoto".',
+        invested: 'janaki — produzione e regia video per "Grafite", "Alibi" e "Antidoto".',
+        fuckedup: 'janaki — camera viva e ravvicinata per catturare la tensione reale del live.'
       },
       copy: {
-        playful: 'Trilogia video per Janaki: il visual del singolo "Grafite" e le due live session intime e taglienti di "Alibi" e "Antidoto".',
-        invested: 'Progettazione e realizzazione video per il progetto musicale R&B/Elettronico Janaki: produzione del video per il singolo "Grafite" e direzione delle performance dal vivo per "Alibi" e "Antidoto".',
-        fuckedup: 'Nelle live session non puoi barare in post-produzione: o becchi l’istante esatto in cui la voce si spezza, o hai perso.'
+        playful: 'Trilogia video per Janaki: il singolo "Grafite" e le due live session di "Alibi" e "Antidoto".',
+        invested: 'Progettazione e produzione video per il progetto musicale Janaki: visual per il singolo "Grafite" e ripresa/montaggio delle live session "Alibi" e "Antidoto".',
+        fuckedup: 'Senza rete: catturare l’istante emotivo esatto durante le performance live.'
       },
-      outputsByRole: {
+      mediaByRole: {
         'video': [
-          { tag: 'Video', title: 'Singolo "Grafite"', desc: 'Video ufficiale per l’uscita del brano Grafite.' },
-          { tag: 'Video', title: 'Live Session "Alibi"', desc: 'Performance live su YouTube: tensione vocale e camera ravvicinata.' },
-          { tag: 'Video', title: 'Live Session "Antidoto"', desc: 'Performance live su YouTube: intimità sonora e dinamica di gruppo.' }
+          { tag: 'Video', title: 'Singolo "Grafite"', img: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=500&auto=format&fit=crop&q=80' },
+          { tag: 'Video', title: 'Live Session "Alibi"', img: 'https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=500&auto=format&fit=crop&q=80' },
+          { tag: 'Video', title: 'Live Session "Antidoto"', img: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=500&auto=format&fit=crop&q=80' }
         ]
       },
       links: [
-        { label: 'YouTube: Alibi Live Session ↗', url: 'http://www.youtube.com/watch?v=FFXYVrovL18' },
-        { label: 'YouTube: Antidoto Live Session ↗', url: 'http://www.youtube.com/watch?v=KxIw-6WlX5w' }
+        { label: 'youtube: alibi live ↗', url: 'http://www.youtube.com/watch?v=FFXYVrovL18' },
+        { label: 'youtube: antidoto live ↗', url: 'http://www.youtube.com/watch?v=KxIw-6WlX5w' }
       ]
     },
     {
       id: 'morireperte',
-      code: '08 // SATELLITE',
-      title: 'MORIRE PER TE',
+      code: '08',
+      title: 'Morire per te',
       isMain: false,
-      color: '#FF8A65',
+      color: '#FF7043',
       xPct: 0.72,
       yPct: 0.68,
       roles: ['video', 'art-direction'],
       connections: ['janaki', 'siamo', 'marsea'],
       thoughts: {
-        playful: 'Direzione e montaggio al Guscio Recording Studio di Milano per Susanna Biollo e Dimaggio. Finita in anteprima su Billboard.',
-        invested: 'Direzione e montaggio della Acoustic Live Session "Morire per te" (Susanna Biollo, Dimaggio), pubblicata in anteprima su Billboard Italia.',
-        fuckedup: 'Pianoforte, violoncello, chitarre, due voci e una grana visiva calda che ti trascina dentro lo studio.'
+        playful: 'morire per te — acoustic live session per Susanna Biollo & Dimaggio, in anteprima su Billboard.',
+        invested: 'morire per te — direzione e montaggio al Guscio Studio (Milano), anteprima Billboard Italia.',
+        fuckedup: 'morire per te — intimità acustica tra pianoforte, violoncello, chitarre e due voci.'
       },
       copy: {
-        playful: 'Acoustic live session girata al Guscio Recording Studio di Milano per Susanna Biollo e Dimaggio, uscita in anteprima nazionale su Billboard Italia.',
-        invested: 'Direzione e montaggio (con assistenza video di Massimo Pedone) per la live session acustica di "Morire per te" di Susanna Biollo e Dimaggio, accompagnati da pianoforte, violoncello e chitarre. Selezionata in anteprima da Billboard Italia.',
-        fuckedup: 'Stare stretti sui dettagli degli strumenti, sugli sguardi tra Susanna e Dimaggio e lasciare che l’imperfezione analogica dell’inquadratura amplifichi il pezzo.'
+        playful: 'Direzione e montaggio della live session acustica di Susanna Biollo e Dimaggio, uscita in anteprima su Billboard Italia.',
+        invested: 'Regia e montaggio presso il Guscio Recording Studio di Milano per la versione acustica live di "Morire per te" (Susanna Biollo, Dimaggio), selezionata in anteprima da Billboard Italia.',
+        fuckedup: 'Lasciare che i dettagli degli strumenti e gli sguardi in studio raccontino la canzone senza artifici.'
       },
-      outputsByRole: {
+      mediaByRole: {
         'video': [
-          { tag: 'Video', title: 'Acoustic Live Session (Guscio Studio)', desc: 'Direzione e montaggio del video ufficiale con anteprima su Billboard Italia.' }
+          { tag: 'Video', title: 'Billboard Live Session', img: 'https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=500&auto=format&fit=crop&q=80' }
         ],
         'art-direction': [
-          { tag: 'Art Direction', title: 'Estetica Lo-Fi / Warm Studio', desc: 'Scelta del taglio fotografico intimo, grana morbida e regia in presa diretta.' }
+          { tag: 'Art Direction', title: 'Guscio Studio Visuals', img: 'https://images.unsplash.com/photo-1465847899084-d164df4dedc6?w=500&auto=format&fit=crop&q=80' }
         ]
       },
       links: [
-        { label: 'YouTube: Morire per te Live ↗', url: 'http://www.youtube.com/watch?v=u_O86zbiH28' },
-        { label: 'Anteprima Billboard Italia ↗', url: 'https://billboard.it/musica/pop/anteprima-live-session-morire-per-te-susanna-biollo-dimaggio/2026/06/17207243/' }
+        { label: 'youtube: morire per te ↗', url: 'http://www.youtube.com/watch?v=u_O86zbiH28' },
+        { label: 'billboard italia premiere ↗', url: 'https://billboard.it/musica/pop/anteprima-live-session-morire-per-te-susanna-biollo-dimaggio/2026/06/17207243/' }
       ]
     },
     {
       id: 'sacraterra',
-      code: '09 // SINAPSI IN INCUBAZIONE',
-      title: 'SACRA TERRA',
+      code: '09',
+      title: 'Sacra Terra',
       isMain: false,
       isTodo: true,
-      color: '#CDDC39',
+      color: '#C0CA33',
       xPct: 0.43,
       yPct: 0.82,
       roles: ['art-direction', 'graphic'],
       connections: ['scroccup', '2colon'],
       thoughts: {
-        playful: 'Spoiler: stiamo costruendo un community hub che rimette al centro l’essenza di ogni individuo.',
-        invested: 'In sviluppo: Branding e identità per Sacra Terra, community hub orientato alla valorizzazione dell’individuo.',
-        fuckedup: 'Sinapsi in formazione. Niente anticipazioni bruciate prima del tempo, ma il branding darà una scossa.'
+        playful: 'sacra terra [in incubazione] — un community hub che dà valore all’essenza di ogni individuo.',
+        invested: 'sacra terra [todo] — sviluppo branding per community hub incentrato sull’identità individuale.',
+        fuckedup: 'sacra terra — sinapsi in formazione. identità visiva in arrivo.'
       },
       copy: {
-        playful: '[WORK IN PROGRESS] Sacra Terra è un community hub che dà valore all’essenza di ogni individuo. Stiamo forgiando l’identità visiva.',
-        invested: '[IN INCUBAZIONE] Progetto di Branding e Art Direction per Sacra Terra: costruzione di uno spazio e di un linguaggio identitario capace di valorizzare l’unicità individuale dentro una dimensione collettiva.',
-        fuckedup: '[SPOILER AL 30%] Un community hub che rifiuta l’omologazione. Torna tra poco per vedere il sistema visivo definitivo.'
+        playful: '[Sinapsi in incubazione] Sacra Terra è un community hub che dà valore all’essenza di ogni individuo.',
+        invested: '[In sviluppo] Progetto di Branding e identità visiva per il community hub Sacra Terra.',
+        fuckedup: '[Work in progress] Costruire uno spazio reale e visivo dove l’essenza individuale non venga appiattita.'
       },
-      outputsByRole: {
+      mediaByRole: {
         'art-direction': [
-          { tag: 'Branding // TODO', title: 'Visione & Posizionamento Hub', desc: 'Architettura valoriale centrata sull’essenza dell’individuo.' }
+          { tag: 'Branding // TODO', title: 'Community Hub Concept', img: 'https://images.unsplash.com/photo-1507608616759-54f48f0af0ee?w=500&auto=format&fit=crop&q=80' }
         ],
         'graphic': [
-          { tag: 'Branding // TODO', title: 'Sistema Visivo in sviluppo', desc: 'Costruzione del marchio e della grammatica cromatica.' }
+          { tag: 'Branding // TODO', title: 'Visual Research', img: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=500&auto=format&fit=crop&q=80' }
         ]
       },
       links: []
     },
     {
       id: '2colon',
-      code: '10 // SINAPSI IN INCUBAZIONE',
+      code: '10',
       title: '2:',
       isMain: false,
       isTodo: true,
-      color: '#00E5FF',
+      color: '#00ACC1',
       xPct: 0.85,
       yPct: 0.78,
       roles: ['graphic', 'copywriting', 'art-direction'],
       connections: ['siamo', 'sacraterra'],
       thoughts: {
-        playful: 'Due punti ("2:"). Un progetto redazionale per prendere a spallate l’indifferenza verso le notizie.',
-        invested: 'In sviluppo: Graphic Design e Branding per "2:", format editoriale che rinnova i linguaggi giornalistici.',
-        fuckedup: 'La gente scorre le notizie come se fossero carta da parati. "2:" nasce per sfondare quella parete di anestesia.'
+        playful: '2: [in incubazione] — sfidare i linguaggi giornalistici per sfondare la parete dell’indifferenza.',
+        invested: '2: [todo] — progetto redazionale, graphic design e branding per una nuova fruizione delle notizie.',
+        fuckedup: '2: — abbattere l’anestesia verso le notizie e il sapere.'
       },
       copy: {
-        playful: '[WORK IN PROGRESS] "2:" è un progetto redazionale che sfida i linguaggi giornalistici tradizionali per abbattere il muro dell’indifferenza.',
-        invested: '[IN INCUBAZIONE] Progettazione di Branding e Graphic Design editoriale per "2:": un nuovo dispositivo d’informazione pensato per riattivare l’attenzione critica verso le notizie e il sapere.',
-        fuckedup: '[SPOILER AL 30%] Il giornalismo classico parla da solo davanti allo specchio. Con "2:" ribaltiamo impaginazione e tono per costringerti a sentire.'
+        playful: '[Sinapsi in incubazione] "2:" è un progetto redazionale che sfida i linguaggi giornalistici per sfondare la parete dell’indifferenza alle notizie e al sapere.',
+        invested: '[In sviluppo] Graphic Design e Branding per "2:", format editoriale sperimentale.',
+        fuckedup: '[Work in progress] Riprogettare il modo in cui le notizie colpiscono chi legge.'
       },
-      outputsByRole: {
+      mediaByRole: {
         'graphic': [
-          { tag: 'Graphic // TODO', title: 'Design Editoriale D’Urto', desc: 'Sperimentazione tipografica e layout pensati contro l’assuefazione da feed.' }
+          { tag: 'Graphic // TODO', title: 'Editorial System', img: 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=500&auto=format&fit=crop&q=80' }
         ],
         'copywriting': [
-          { tag: 'Editorial // TODO', title: 'Nuovi Linguaggi Giornalistici', desc: 'Ricerca sul formato di sintesi e approfondimento.' }
+          { tag: 'Editorial // TODO', title: 'Nuovi Linguaggi', img: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=500&auto=format&fit=crop&q=80' }
         ]
       },
       links: []
     }
   ];
 
-  // Nodo Concettuale Personale (Punto 5: Tu come progetto concettuale, non visivo)
   const SELF_CONCEPT_DATA = {
-    code: '00 // PROGETTO CONCETTUALE',
-    title: 'LUCCNT // COSCIENZA',
-    color: '#00E676',
+    code: '00',
+    title: 'luccnt // consciousness',
+    color: '#121212',
     roles: ['art-direction', 'graphic', 'ui-ux', 'photo', 'video', 'copywriting', 'pm'],
     copy: {
-      playful: 'Niente foto in posa con le braccia incrociate. Io sono il sistema operativo che tiene insieme questi 10 nodi tra Torino e il Salento. Muovo cose, scrivo cose, dirigo set e incastro budget.',
-      invested: 'Lucrezia Conte (Luccnt) — Design e Comunicazione @ Politecnico di Torino & Presidente di H2O APS. Lavoro come sistema ibrido tra Art Direction, Visual Design, UX/UI, Fotografia, Videomaking e Project Management culturale.',
-      fuckedup: 'Mi annoia fare una cosa sola e mi annoiano i siti vetrina tutti uguali. Uso la griglia per non impazzire e i colori pop per dare fastidio.'
+      playful: 'Io sono il progetto concettuale (non visivo) che connette questi 10 nodi tra Torino e il Salento.',
+      invested: 'Lucrezia Conte (Luccnt) — Design e Comunicazione @ Politecnico di Torino & Presidente H2O APS. Art Direction, Visual Design, UX/UI, Fotografia, Video e Project Management.',
+      fuckedup: 'Rifiuto i portfolio standard: linee pulite, rigore berlinese e contrasti pop quando tocchi le sinapsi.'
     },
+    mediaByRole: {},
     links: [
-      { label: 'Scrivi a contelucrezia.14@gmail.com ↗', url: 'mailto:contelucrezia.14@gmail.com' },
-      { label: 'Tipule Festival Mail ↗', url: 'mailto:tipulefestival@gmail.com' }
+      { label: 'contelucrezia.14@gmail.com ↗', url: 'mailto:contelucrezia.14@gmail.com' },
+      { label: 'tipulefestival@gmail.com ↗', url: 'mailto:tipulefestival@gmail.com' }
     ]
   };
 
   /* ==========================================================================
-     2. STATO DELL'ECOSISTEMA
+     2. STATO & RIFERIMENTI DOM
      ========================================================================== */
-  let currentMode = 'playful'; // 'playful' | 'invested' | 'fuckedup'
+  let currentMode = 'playful';
   let currentFilter = 'all';
   let mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2, vx: 0, vy: 0, speed: 0 };
   let trailPoints = [];
@@ -376,20 +377,22 @@ document.addEventListener('DOMContentLoaded', () => {
   const thoughtStream = document.getElementById('thoughtStream');
   const cursorCoords = document.getElementById('cursorCoords');
   const activeFilterLabel = document.getElementById('activeFilterLabel');
+  const shapeStateLabel = document.getElementById('shapeStateLabel');
 
   /* ==========================================================================
-     3. RENDER DEI NODI E DEL VENTAGLIO MAGNETICO (C)
+     3. COSTRUZIONE NODI CON HOVER SOLO IMMAGINI (Filtrate per Mansione)
      ========================================================================== */
-  function getCardsForNodeAndFilter(node, filter) {
-    if (filter !== 'all' && node.outputsByRole[filter]) {
-      return node.outputsByRole[filter];
+  function getThumbsForNode(node, filter) {
+    if (filter !== 'all' && node.mediaByRole && node.mediaByRole[filter]) {
+      return node.mediaByRole[filter];
     }
-    // Se 'all', prendi il primo output di ogni ruolo del progetto (max 3 per il ventaglio)
-    const allCards = [];
-    Object.keys(node.outputsByRole).forEach((r) => {
-      node.outputsByRole[r].forEach((c) => allCards.push(c));
-    });
-    return allCards.slice(0, 3);
+    const list = [];
+    if (node.mediaByRole) {
+      Object.keys(node.mediaByRole).forEach((k) => {
+        node.mediaByRole[k].forEach((m) => list.push(m));
+      });
+    }
+    return list.slice(0, 3);
   }
 
   function buildNodes() {
@@ -402,37 +405,29 @@ document.addEventListener('DOMContentLoaded', () => {
       el.style.setProperty('--node-pop', node.color);
       el.dataset.id = node.id;
 
-      const cards = getCardsForNodeAndFilter(node, currentFilter);
-      const activeRoleText = currentFilter === 'all'
-        ? node.roles.join(' · ')
-        : `FOCUS // ${currentFilter.toUpperCase()}`;
-
-      const fanCardsHtml = cards.map((c, idx) => `
-        <div class="fan-card" data-fan-idx="${idx}">
-          <span class="fan-card-tag">${c.tag}</span>
-          <div class="fan-card-title">${c.title}</div>
-          <div class="fan-card-desc">${c.desc}</div>
+      const thumbs = getThumbsForNode(node, currentFilter);
+      const thumbsHtml = thumbs.map((t, i) => `
+        <div class="fan-thumb" data-idx="${i}">
+          <img src="${t.img}" alt="${t.title}" loading="lazy">
+          <span class="fan-thumb-badge">${t.tag}</span>
         </div>
       `).join('');
 
       el.innerHTML = `
-        <div class="fan-deck">${fanCardsHtml}</div>
-        <div class="node-core">
-          <div class="node-kicker">
-            <span>${node.code}</span>
-            <span>●</span>
+        <div class="img-fan">${thumbsHtml}</div>
+        <div class="node-anchor">
+          <span class="node-shape"></span>
+          <div class="node-info">
+            <span class="node-num">${node.code}</span>
+            <span class="node-name">${node.title}</span>
           </div>
-          <div class="node-title">${node.title}</div>
-          <div class="node-active-role">${activeRoleText}</div>
         </div>
       `;
 
-      // Hover: aggiorna Luc's Inner Thoughts
       el.addEventListener('mouseenter', () => {
-        setThought(node.thoughts[currentMode]);
+        thoughtStream.textContent = node.thoughts[currentMode];
       });
 
-      // Click: apre la Scheda Studio completa
       el.addEventListener('click', () => {
         openStudyDrawer(node);
       });
@@ -471,7 +466,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('resize', layoutNodes);
 
   /* ==========================================================================
-     4. MOTORE AUDIOREATTIVO (Web Audio API + Sintetizzatore Ambient Fallback)
+     4. MOTORE AUDIOREATTIVO AMBIENT + SUB-BASS
      ========================================================================== */
   let audioCtx = null;
   let analyser = null;
@@ -483,56 +478,34 @@ document.addEventListener('DOMContentLoaded', () => {
   const bgAudio = document.getElementById('bgAudio');
   const eqBars = document.querySelectorAll('#eqBars i');
 
-  function startAmbientSynthFallback() {
-    // Genera un tappeto Ambient + Sub-Bass morbido se il file mp3 non è ancora presente
+  function startAmbientSynth() {
     const oscSub = audioCtx.createOscillator();
-    const oscPad1 = audioCtx.createOscillator();
-    const oscPad2 = audioCtx.createOscillator();
-    const lfo = audioCtx.createOscillator();
-    const lfoGain = audioCtx.createGain();
-    const masterGain = audioCtx.createGain();
+    const oscPad = audioCtx.createOscillator();
     const filter = audioCtx.createBiquadFilter();
+    const gain = audioCtx.createGain();
 
     oscSub.type = 'sine';
-    oscSub.frequency.value = 55; // A1 sub bass
-
-    oscPad1.type = 'triangle';
-    oscPad1.frequency.value = 110;
-
-    oscPad2.type = 'sine';
-    oscPad2.frequency.value = 164.81; // E3 fifth
-
-    lfo.type = 'sine';
-    lfo.frequency.value = 0.35; // respiro lento ambient
-    lfoGain.gain.value = 180;
+    oscSub.frequency.value = 55;
+    oscPad.type = 'triangle';
+    oscPad.frequency.value = 110;
 
     filter.type = 'lowpass';
-    filter.frequency.value = 260;
-
-    masterGain.gain.value = 0.12;
-
-    lfo.connect(lfoGain);
-    lfoGain.connect(filter.frequency);
+    filter.frequency.value = 220;
+    gain.gain.value = 0.09;
 
     oscSub.connect(filter);
-    oscPad1.connect(filter);
-    oscPad2.connect(filter);
-    filter.connect(masterGain);
-    masterGain.connect(analyser);
+    oscPad.connect(filter);
+    filter.connect(gain);
+    gain.connect(analyser);
     analyser.connect(audioCtx.destination);
 
     oscSub.start();
-    oscPad1.start();
-    oscPad2.start();
-    lfo.start();
-
-    synthNodes = [oscSub, oscPad1, oscPad2, lfo];
+    oscPad.start();
+    synthNodes = [oscSub, oscPad];
   }
 
-  function stopAmbientSynthFallback() {
-    synthNodes.forEach((n) => {
-      try { n.stop(); } catch (e) {}
-    });
+  function stopAmbientSynth() {
+    synthNodes.forEach((n) => { try { n.stop(); } catch (e) {} });
     synthNodes = [];
   }
 
@@ -540,20 +513,16 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!audioCtx) {
       audioCtx = new (window.AudioContext || window.webkitAudioContext)();
       analyser = audioCtx.createAnalyser();
-      analyser.fftSize = 128;
+      analyser.fftSize = 64;
       freqData = new Uint8Array(analyser.frequencyBinCount);
     }
-
-    if (audioCtx.state === 'suspended') {
-      await audioCtx.resume();
-    }
+    if (audioCtx.state === 'suspended') await audioCtx.resume();
 
     isAudioActive = !isAudioActive;
     audioBtn.setAttribute('aria-pressed', isAudioActive ? 'true' : 'false');
-    audioBtn.querySelector('.audio-lbl').textContent = isAudioActive ? 'AUDIO // REACTIVE ON' : 'AUDIO // OFF';
+    audioBtn.querySelector('.audio-lbl').textContent = isAudioActive ? 'sound: on' : 'sound: off';
 
     if (isAudioActive) {
-      // Prova a riprodurre la traccia del tuo amico; se non carica, attiva il synth ambient integrato
       bgAudio.play().then(() => {
         if (!bgAudio._connected) {
           const src = audioCtx.createMediaElementSource(bgAudio);
@@ -561,19 +530,16 @@ document.addEventListener('DOMContentLoaded', () => {
           analyser.connect(audioCtx.destination);
           bgAudio._connected = true;
         }
-      }).catch(() => {
-        startAmbientSynthFallback();
-      });
-      setThought('Audio attivo: le sinapsi ora respirano sulle frequenze basse.');
+      }).catch(() => startAmbientSynth());
     } else {
       bgAudio.pause();
-      stopAmbientSynthFallback();
+      stopAmbientSynth();
       eqBars.forEach((b) => (b.style.height = '3px'));
     }
   });
 
   /* ==========================================================================
-     5. LOOP FISICO: SCIA CINETICA (B) + MAGNETISMO & VENTAGLIO (C) + AUDIO
+     5. FISICA DEL CURSORE: SCIA CON FORMA MUTANTE + VENTAGLIO IMMAGINI
      ========================================================================== */
   stage.addEventListener('mousemove', (e) => {
     const rect = stage.getBoundingClientRect();
@@ -586,223 +552,201 @@ document.addEventListener('DOMContentLoaded', () => {
     mouse.x = nx;
     mouse.y = ny;
 
-    cursorCoords.textContent = `X: ${String(Math.round(nx)).padStart(4, '0')} // Y: ${String(Math.round(ny)).padStart(4, '0')} // VEL: ${mouse.speed.toFixed(1)}`;
+    cursorCoords.textContent = `x: ${String(Math.round(nx)).padStart(3, '0')} · y: ${String(Math.round(ny)).padStart(3, '0')}`;
 
-    // Aggiungi punto alla Scia Cinetica Pop (Meccanica B)
-    if (mouse.speed > 4) {
-      const palette = ['#FE76FE', '#5AD683', '#E82A1C', '#F26432', '#3D9DD5'];
+    if (mouse.speed > 5) {
+      const colors = ['#FE76FE', '#5AD683', '#E82A1C', '#F26432', '#3D9DD5'];
       trailPoints.push({
         x: nx,
         y: ny,
-        vx: mouse.vx * 0.2,
-        vy: mouse.vy * 0.2,
-        size: Math.min(34, 8 + mouse.speed * 0.45),
-        color: palette[Math.floor(Math.random() * palette.length)],
+        size: Math.min(22, 6 + mouse.speed * 0.3),
+        color: colors[Math.floor(Math.random() * colors.length)],
         life: 1.0
       });
     }
   });
 
-  function animateEcosystem(time) {
+  function drawMorphShape(ctx, x, y, r, mode) {
+    ctx.beginPath();
+    if (mode === 'playful') {
+      // Cerchio organico
+      ctx.arc(x, y, r, 0, Math.PI * 2);
+    } else if (mode === 'invested') {
+      // Quadrato ortogonale
+      ctx.rect(x - r, y - r, r * 2, r * 2);
+    } else {
+      // Diamante / Poligono tagliato (Fucked Up)
+      ctx.moveTo(x, y - r * 1.3);
+      ctx.lineTo(x + r * 1.1, y);
+      ctx.lineTo(x, y + r * 1.3);
+      ctx.lineTo(x - r * 1.1, y);
+      ctx.closePath();
+    }
+  }
+
+  function animate(time) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // 1. Calcolo energia Audio (Bassi e Medi)
-    let bassEnergy = 0;
-    let midEnergy = 0;
+    let bass = 0;
     if (isAudioActive && analyser && freqData) {
       analyser.getByteFrequencyData(freqData);
-      bassEnergy = (freqData[1] + freqData[2] + freqData[3]) / (3 * 255);
-      midEnergy = (freqData[8] + freqData[12] + freqData[16]) / (3 * 255);
-
-      eqBars.forEach((bar, i) => {
-        const val = freqData[i * 3 + 1] || 20;
-        bar.style.height = `${Math.max(3, (val / 255) * 14)}px`;
+      bass = (freqData[1] + freqData[2]) / (2 * 255);
+      eqBars.forEach((b, i) => {
+        b.style.height = `${Math.max(2, ((freqData[i * 2 + 1] || 10) / 255) * 11)}px`;
       });
     }
 
-    // 2. Aggiorna posizione Nodi (Attrazione Magnetica C + Fluttuazione Ambient)
-    const magnetRadius = currentMode === 'fuckedup' ? 190 : 145;
+    const magnetRadius = 135;
 
     NODES_DATA.forEach((node, idx) => {
       const item = nodeElements[node.id];
       if (!item) return;
 
-      const floatX = Math.sin(time * 0.0012 + idx) * (4 + bassEnergy * 18);
-      const floatY = Math.cos(time * 0.0015 + idx * 1.3) * (4 + midEnergy * 18);
+      const fx = Math.sin(time * 0.001 + idx) * (3 + bass * 14);
+      const fy = Math.cos(time * 0.0012 + idx) * (3 + bass * 14);
 
       const dx = mouse.x - item.baseX;
       const dy = mouse.y - item.baseY;
       const dist = Math.hypot(dx, dy);
 
-      let targetX = item.baseX + floatX;
-      let targetY = item.baseY + floatY;
+      let tx = item.baseX + fx;
+      let ty = item.baseY + fy;
 
-      const fanCards = item.el.querySelectorAll('.fan-card');
+      const thumbs = item.el.querySelectorAll('.fan-thumb');
 
       if (dist < magnetRadius && !item.el.classList.contains('dimmed')) {
-        // Aggancio Magnetico (C)
-        const pull = (1 - dist / magnetRadius) * 0.38;
-        targetX += dx * pull;
-        targetY += dy * pull;
+        const pull = (1 - dist / magnetRadius) * 0.32;
+        tx += dx * pull;
+        ty += dy * pull;
         item.el.classList.add('magnet-locked');
 
-        // Ruota e apri a ventaglio le card in base all'angolo del cursore attorno al pin
-        const angleRad = Math.atan2(dy, dx);
-        const angleDeg = angleRad * (180 / Math.PI);
-
-        fanCards.forEach((card, cIdx) => {
-          const spread = (cIdx - (fanCards.length - 1) / 2) * 28;
-          const distOut = 128 + cIdx * 12;
-          const cardAngle = (angleDeg + spread) * (Math.PI / 180);
-          const cx = Math.cos(cardAngle) * distOut;
-          const cy = Math.sin(cardAngle) * distOut;
-          card.style.transform = `translate(calc(-50% + ${cx}px), calc(-50% + ${cy}px)) rotate(${spread * 0.35}deg) scale(1)`;
+        const baseAngle = Math.atan2(dy, dx);
+        thumbs.forEach((thumb, tIdx) => {
+          const offsetAngle = (tIdx - (thumbs.length - 1) / 2) * 0.48;
+          const radius = 104 + tIdx * 8;
+          const cx = Math.cos(baseAngle + offsetAngle) * radius;
+          const cy = Math.sin(baseAngle + offsetAngle) * radius;
+          const rot = (offsetAngle * 180) / Math.PI * 0.45;
+          thumb.style.transform = `translate(calc(-50% + ${cx}px), calc(-50% + ${cy}px)) rotate(${rot}deg) scale(1)`;
         });
       } else {
         item.el.classList.remove('magnet-locked');
-        fanCards.forEach((card) => {
-          card.style.transform = 'translate(-50%, -50%) scale(0.4) rotate(0deg)';
+        thumbs.forEach((thumb) => {
+          thumb.style.transform = 'translate(-50%, -50%) scale(0.45)';
         });
       }
 
-      item.curX += (targetX - item.curX) * 0.14;
-      item.curY += (targetY - item.curY) * 0.14;
+      item.curX += (tx - item.curX) * 0.12;
+      item.curY += (ty - item.curY) * 0.12;
 
-      const scaleBoost = 1 + bassEnergy * 0.08;
       item.el.style.left = `${item.curX}px`;
       item.el.style.top = `${item.curY}px`;
-      item.el.style.transform = `translate(-50%, -50%) scale(${scaleBoost.toFixed(3)})`;
     });
 
-    // 3. Disegna Corde Sinaptiche Elastiche (Si flettono col cursore e vibrano con l'audio)
-    ctx.lineWidth = currentMode === 'fuckedup' ? 2.2 : 1.4;
-
+    // Linee di connessione Berlinesi (0.75px hairline)
+    ctx.lineWidth = 0.85;
     NODES_DATA.forEach((node) => {
-      const fromItem = nodeElements[node.id];
-      if (!fromItem) return;
+      const from = nodeElements[node.id];
+      if (!from) return;
 
-      node.connections.forEach((targetId) => {
-        const toItem = nodeElements[targetId];
-        if (!toItem) return;
+      node.connections.forEach((tid) => {
+        const to = nodeElements[tid];
+        if (!to) return;
 
-        const mx = (fromItem.curX + toItem.curX) / 2;
-        const my = (fromItem.curY + toItem.curY) / 2;
+        const mx = (from.curX + to.curX) / 2;
+        const my = (from.curY + to.curY) / 2;
+        const dm = Math.hypot(mouse.x - mx, mouse.y - my);
 
-        // Flessione elastica al passaggio del cursore
-        const dMouse = Math.hypot(mouse.x - mx, mouse.y - my);
-        let ctrlX = mx;
-        let ctrlY = my;
-
-        if (dMouse < 180) {
-          const bend = (1 - dMouse / 180) * (currentMode === 'fuckedup' ? 75 : 42);
-          ctrlX += (mx - mouse.x) * (bend / 100);
-          ctrlY += (my - mouse.y) * (bend / 100);
+        let cx = mx;
+        let cy = my;
+        if (dm < 150) {
+          const f = (1 - dm / 150) * 28;
+          cx += (mx - mouse.x) * (f / 100);
+          cy += (my - mouse.y) * (f / 100);
         }
-
-        // Vibrazione audioreattiva sulla corda
         if (isAudioActive) {
-          ctrlY += Math.sin(time * 0.02 + mx) * (bassEnergy * 35);
+          cy += Math.sin(time * 0.015 + mx) * (bass * 24);
         }
 
         ctx.beginPath();
-        ctx.moveTo(fromItem.curX, fromItem.curY);
-        ctx.quadraticCurveTo(ctrlX, ctrlY, toItem.curX, toItem.curY);
-        ctx.strokeStyle = dMouse < 150 ? node.color : 'rgba(10, 10, 10, 0.22)';
+        ctx.moveTo(from.curX, from.curY);
+        ctx.quadraticCurveTo(cx, cy, to.curX, to.curY);
+        ctx.strokeStyle = dm < 130 ? node.color : 'rgba(18, 18, 18, 0.14)';
         ctx.stroke();
       });
     });
 
-    // 4. Disegna Scia Cinetica Pop del Cursore (Meccanica B)
+    // Scia geometrica che cambia forma con lo Switch
     for (let i = trailPoints.length - 1; i >= 0; i--) {
       const p = trailPoints[i];
-      p.x += p.vx;
-      p.y += p.vy;
-      p.life -= currentMode === 'fuckedup' ? 0.025 : 0.045;
-
+      p.life -= 0.04;
       if (p.life <= 0) {
         trailPoints.splice(i, 1);
         continue;
       }
-
       ctx.save();
-      ctx.fillStyle = p.color;
-      ctx.strokeStyle = '#0a0a0a';
-      ctx.lineWidth = 1.5;
-      ctx.globalAlpha = p.life;
-      const s = p.size * p.life;
-      ctx.fillRect(p.x - s / 2, p.y - s / 2, s, s);
-      ctx.strokeRect(p.x - s / 2, p.y - s / 2, s, s);
+      ctx.strokeStyle = p.color;
+      ctx.lineWidth = 1;
+      ctx.globalAlpha = p.life * 0.75;
+      drawMorphShape(ctx, p.x, p.y, (p.size * p.life) / 2, currentMode);
+      ctx.stroke();
       ctx.restore();
     }
 
-    requestAnimationFrame(animateEcosystem);
+    requestAnimationFrame(animate);
   }
 
   /* ==========================================================================
-     6. FILTRI MANSIONE (Cambia cosa mostra ogni pin in tempo reale - Punto 1.3)
+     6. FILTRI MANSIONE & SWITCH SEMAFORO (CAMBIO FORMA E PENSIERO)
      ========================================================================== */
   const filterBtns = document.querySelectorAll('.flt');
-
   filterBtns.forEach((btn) => {
     btn.addEventListener('click', () => {
       filterBtns.forEach((b) => b.classList.remove('on'));
       btn.classList.add('on');
-
       currentFilter = btn.dataset.role;
       document.body.dataset.filter = currentFilter;
-      activeFilterLabel.textContent = btn.textContent.trim();
+      activeFilterLabel.textContent = `view: ${btn.textContent.toLowerCase()}`;
 
-      // Ricostruisce le card del ventaglio per mostrare solo gli output della mansione scelta
       buildNodes();
-
       NODES_DATA.forEach((node) => {
         const item = nodeElements[node.id];
         if (!item) return;
         const match = currentFilter === 'all' || node.roles.includes(currentFilter);
         item.el.classList.toggle('dimmed', !match);
       });
-
-      setThought(
-        currentFilter === 'all'
-          ? 'Mappa completa attiva: tutti i 10 nodi sono in tensione.'
-          : `Filtro [${currentFilter.toUpperCase()}] attivo: i pin ora mostrano solo gli output di questa mansione.`
-      );
     });
   });
 
-  /* ==========================================================================
-     7. SWITCH SEMAFORO: PLAYFUL / INVESTED / FUCKED UP (Punto 2.3 & 6)
-     ========================================================================== */
   const modeBtns = document.querySelectorAll('[data-set-mode]');
-
+  const SHAPE_LABELS = {
+    playful: 'shape: organic circle (playful)',
+    invested: 'shape: orthogonal square (invested)',
+    fuckedup: 'shape: sliced polygon (fucked up)'
+  };
   const MODE_THOUGHTS = {
-    playful: 'Modalità 🟢 PLAYFUL: gira tra i pin, gioca con il magnetismo del cursore e goditi il viaggio.',
-    invested: 'Modalità 🟡 INVESTED: numeri, strategia, business plan, ricerca UX e risultati concreti. Zero fuffa.',
-    fuckedup: 'Modalità 🔴 FUCKED UP: il dietro le quinte crudo, il fastidio visivo e le sfide che ci hanno tolto il sonno.'
+    playful: 'stato playful — forme circolari e navigazione visiva leggera.',
+    invested: 'stato invested — geometria ortogonale, strategia, numeri e case study.',
+    fuckedup: 'stato fucked up — poligoni tagliati, concetto crudo e sperimentazione.'
   };
 
   modeBtns.forEach((btn) => {
     btn.addEventListener('click', () => {
       modeBtns.forEach((b) => b.classList.remove('on'));
       btn.classList.add('on');
-
       currentMode = btn.dataset.setMode;
       document.body.dataset.mode = currentMode;
-      setThought(MODE_THOUGHTS[currentMode]);
+      shapeStateLabel.textContent = SHAPE_LABELS[currentMode];
+      thoughtStream.textContent = MODE_THOUGHTS[currentMode];
 
-      // Se c'è un drawer progetto aperto, aggiorna in tempo reale il copy nella nuova modalità
       if (studyDrawer.getAttribute('aria-hidden') === 'false' && activeDrawerNode) {
         renderDrawerContent(activeDrawerNode);
       }
     });
   });
 
-  function setThought(text) {
-    thoughtStream.textContent = text;
-  }
-
   /* ==========================================================================
-     8. DRAWER DI STUDIO DEL PROGETTO (Con Moduli Interattivi Marsea & Tipule)
+     7. DRAWER DI STUDIO DEL PROGETTO
      ========================================================================== */
   const studyDrawer = document.getElementById('studyDrawer');
   const drawerClose = document.getElementById('drawerClose');
@@ -820,95 +764,75 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function renderDrawerContent(node) {
-    dwId.textContent = node.code;
-    dwRoles.textContent = node.roles.map((r) => r.toUpperCase()).join(' // ');
+    dwId.textContent = `node // ${node.code}`;
+    dwRoles.textContent = node.roles.join(' · ');
 
-    const modeBadge = {
-      playful: '🟢 VERSIONE PLAYFUL // DRITTO AL PUNTO',
-      invested: '🟡 VERSIONE INVESTED // STRATEGIA & STUDIO',
-      fuckedup: '🔴 VERSIONE FUCKED UP // DIETRO LE QUINTE CRUDO'
-    }[currentMode];
-
-    // Raccoglie gli output (filtrati o completi)
-    let outputsList = [];
-    if (node.outputsByRole) {
-      Object.keys(node.outputsByRole).forEach((roleKey) => {
-        node.outputsByRole[roleKey].forEach((item) => outputsList.push(item));
+    const allMedia = [];
+    if (node.mediaByRole) {
+      Object.keys(node.mediaByRole).forEach((k) => {
+        node.mediaByRole[k].forEach((m) => allMedia.push(m));
       });
     }
 
-    // Costruzione modulo interattivo speciale per MARSEA (Loop Anatomico/Duotone)
-    let specialWidgetHtml = '';
+    let interactiveHtml = '';
     if (node.interactiveType === 'marsea-loop') {
-      specialWidgetHtml = `
-        <div class="interactive-study-box">
-          <h4>STUDIO INTERATTIVO // IL LOOP ANATOMICO &amp; DUOTONE</h4>
-          <div class="loop-pills">
-            <button type="button" class="loop-pill active" data-bg="linear-gradient(90deg, #FE76FE, #5AD683)" data-txt="1. RIFIORIRE — Parte del corpo: VISO & OCCHIO // Duotone: ROSA → VERDE">01. Viso / Occhio</button>
-            <button type="button" class="loop-pill" data-bg="linear-gradient(90deg, #5AD683, #3F78FF)" data-txt="2. LA LUNA — Parte del corpo: MANI // Duotone: VERDE → BLU">02. Mani (Luna)</button>
-            <button type="button" class="loop-pill" data-bg="linear-gradient(90deg, #3F78FF, #FFD600)" data-txt="3. IL SOLE — Parte del corpo: OMBELICO // Duotone: BLU → GIALLO">03. Ombelico (Sole)</button>
-            <button type="button" class="loop-pill" data-bg="linear-gradient(90deg, #FFD600, #FE76FE)" data-txt="4. LE STELLE — Parte del corpo: SPALLA // Duotone: GIALLO → ROSA">04. Spalla (Stelle)</button>
-            <button type="button" class="loop-pill" data-bg="#FFFFFF" data-txt="5. EP FINALE — FIGURA INTERA // Predominante Bianca con accenti cromatici sulle 4 parti del corpo.">05. Figura Intera (EP)</button>
+      interactiveHtml = `
+        <div class="study-module">
+          <h4>loop anatomico &amp; duotone</h4>
+          <div class="pill-row">
+            <button type="button" class="s-pill active" data-bg="linear-gradient(90deg, #fce4ec, #e8f5e9)" data-txt="01. Rifiorire — Viso & Occhio // Duotone: Rosa → Verde">01. Viso</button>
+            <button type="button" class="s-pill" data-bg="linear-gradient(90deg, #e8f5e9, #e3f2fd)" data-txt="02. La Luna — Mani // Duotone: Verde → Blu">02. Mani</button>
+            <button type="button" class="s-pill" data-bg="linear-gradient(90deg, #e3f2fd, #fffde7)" data-txt="03. Il Sole — Ombelico // Duotone: Blu → Giallo">03. Ombelico</button>
+            <button type="button" class="s-pill" data-bg="linear-gradient(90deg, #fffde7, #fce4ec)" data-txt="04. Le Stelle — Spalla // Duotone: Giallo → Rosa">04. Spalla</button>
+            <button type="button" class="s-pill" data-bg="#ffffff" data-txt="05. EP Finale — Figura Intera // Bianco predominante con accenti cromatici sulle parti del corpo">05. EP</button>
           </div>
-          <div class="loop-preview" id="loopPreview" style="background: linear-gradient(90deg, #FE76FE, #5AD683);">
-            1. RIFIORIRE — Parte del corpo: VISO &amp; OCCHIO // Duotone: ROSA → VERDE
+          <div class="s-preview" id="sPreview" style="background: linear-gradient(90deg, #fce4ec, #e8f5e9);">
+            01. Rifiorire — Viso &amp; Occhio // Duotone: Rosa → Verde
           </div>
         </div>
       `;
     } else if (node.interactiveType === 'tipule-editions') {
-      specialWidgetHtml = `
-        <div class="interactive-study-box">
-          <h4>MUTAZIONE IDENTITÀ ANNUALE &amp; ARCHITETTURA</h4>
-          <div class="loop-pills">
-            <button type="button" class="loop-pill active" data-bg="#FE76FE" data-txt="EDIZIONE 2026 (28 Agosto, Borgo di Acaya): Lavoro sul 'fastidio visivo' con tipografia compressa a tutto schermo, Doppio Palco a incastro (Main Stage + Palco 2 Jam Session/Agorà) e raccolta fondi 6.000€ con H2O APS.">2026 // FASTIDIO VISIVO (#FE76FE)</button>
-            <button type="button" class="loop-pill" data-bg="#FFD600" data-txt="EDIZIONE PILOTA 2025: 800+ partecipanti, 15+ artisti sul palco, 48k+ visualizzazioni social con 0€ di sponsorizzate e 81% reach su non-follower.">2025 // EDIZIONE PILOTA (800+ PAX)</button>
+      interactiveHtml = `
+        <div class="study-module">
+          <h4>mutazione annuale &amp; struttura</h4>
+          <div class="pill-row">
+            <button type="button" class="s-pill active" data-bg="#fdf2fd" data-txt="2026 (28 Agosto, Borgo di Acaya): Fastidio visivo #FE76FE, doppio palco a incastro (Main Stage + Palco 2 Jam Session/Agorà) e raccolta 6.000€ con H2O APS.">2026 // #FE76FE</button>
+            <button type="button" class="s-pill" data-bg="#fffde7" data-txt="2025 (Edizione Pilota): 800+ partecipanti, 15+ artisti emergenti, 48k+ views organiche con 0€ di adv.">2025 // Pilota</button>
           </div>
-          <div class="loop-preview" id="loopPreview" style="background: #FE76FE;">
-            EDIZIONE 2026 (28 Agosto, Borgo di Acaya): Lavoro sul 'fastidio visivo' con tipografia compressa a tutto schermo, Doppio Palco a incastro e raccolta fondi 6.000€ con H2O APS.
+          <div class="s-preview" id="sPreview" style="background: #fdf2fd;">
+            2026 (28 Agosto, Borgo di Acaya): Fastidio visivo #FE76FE, doppio palco a incastro e raccolta 6.000€ con H2O APS.
           </div>
         </div>
       `;
     }
 
-    const outputsHtml = outputsList.length
-      ? `
-        <div>
-          <h4 style="font-family:var(--mono);font-size:0.75rem;margin-bottom:10px;">OUTPUT PER MANSIONE //</h4>
-          <div class="dw-outputs-grid">
-            ${outputsList.map((o) => `
-              <div class="dw-output-card">
-                <b>${o.tag}</b>
-                <h5>${o.title}</h5>
-                <p>${o.desc}</p>
-              </div>
-            `).join('')}
-          </div>
-        </div>
-      `
+    const galleryHtml = allMedia.length
+      ? `<div class="dw-gallery">
+          ${allMedia.map((m) => `
+            <figure class="dw-fig">
+              <img src="${m.img}" alt="${m.title}" loading="lazy">
+              <figcaption><b>${m.tag}</b>${m.title}</figcaption>
+            </figure>
+          `).join('')}
+        </div>`
       : '';
 
     const linksHtml = (node.links && node.links.length)
-      ? `
-        <div class="dw-ext-links">
-          ${node.links.map((l) => `<a class="dw-link" href="${l.url}" target="_blank" rel="noopener">${l.label}</a>`).join('')}
-        </div>
-      `
+      ? `<div class="dw-links">
+          ${node.links.map((l) => `<a class="dw-a" href="${l.url}" target="_blank" rel="noopener">${l.label}</a>`).join('')}
+        </div>`
       : '';
 
     dwBody.innerHTML = `
       <h2 class="dw-title">${node.title}</h2>
-      <div class="dw-voice-box">
-        <span class="dw-voice-label">${modeBadge}</span>
-        <p class="dw-voice-copy">${node.copy[currentMode]}</p>
-      </div>
-      ${specialWidgetHtml}
-      ${outputsHtml}
+      <p class="dw-copy">${node.copy[currentMode]}</p>
+      ${interactiveHtml}
+      ${galleryHtml}
       ${linksHtml}
     `;
 
-    // Attiva i bottoni interattivi dello studio (se presenti)
-    const pills = dwBody.querySelectorAll('.loop-pill');
-    const preview = dwBody.querySelector('#loopPreview');
+    const pills = dwBody.querySelectorAll('.s-pill');
+    const preview = dwBody.querySelector('#sPreview');
     pills.forEach((pill) => {
       pill.addEventListener('click', () => {
         pills.forEach((p) => p.classList.remove('active'));
@@ -932,14 +856,48 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.key === 'Escape') closeDrawer();
   });
 
-  // Bottone "LUCCNT // CONSCIOUSNESS" in alto a sinistra (Punto 5: Tu come progetto concettuale)
   document.getElementById('selfNodeBtn').addEventListener('click', () => {
     openStudyDrawer(SELF_CONCEPT_DATA);
   });
 
   /* ==========================================================================
-     9. AVVIO SISTEMA
+     8. GENERATORE .ZIP INTEGRATO (Scarica tutta la cartella con 1 click)
      ========================================================================== */
+  const exportZipBtn = document.getElementById('exportZipBtn');
+  if (exportZipBtn) {
+    exportZipBtn.addEventListener('click', async () => {
+      if (typeof JSZip === 'undefined') {
+        alert('Libreria JSZip non caricata. Verifica la connessione internet.');
+        return;
+      }
+      exportZipBtn.textContent = 'packing...';
+      const zip = new JSZip();
+      const folder = zip.folder('luccnt-berlin-portfolio');
+      folder.folder('assets');
+
+      try {
+        const [htmlRes, cssRes, jsRes] = await Promise.all([
+          fetch('index.html').then((r) => r.text()).catch(() => document.documentElement.outerHTML),
+          fetch('style.css').then((r) => r.text()).catch(() => ''),
+          fetch('script.js').then((r) => r.text()).catch(() => '')
+        ]);
+
+        folder.file('index.html', htmlRes);
+        folder.file('style.css', cssRes);
+        folder.file('script.js', jsRes);
+        folder.file('README.txt', 'Inserisci in /assets il file ambient-track.mp3 e le immagini dei tuoi progetti.');
+
+        const blob = await zip.generateAsync({ type: 'blob' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'luccnt-berlin-portfolio.zip';
+        a.click();
+      } finally {
+        exportZipBtn.textContent = '↓ .zip';
+      }
+    });
+  }
+
   buildNodes();
-  requestAnimationFrame(animateEcosystem);
+  requestAnimationFrame(animate);
 });
