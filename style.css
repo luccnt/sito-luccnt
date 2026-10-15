@@ -1,0 +1,704 @@
+:root {
+  --bg: #f6f6f3;
+  --ink: #0a0a0a;
+  --mute: #686763;
+  --grid-line: rgba(10, 10, 10, 0.08);
+  --pop: #fe76fe;
+  --green: #00e676;
+  --yellow: #ffd600;
+  --red: #ff1744;
+  --disp: "Archivo", Impact, sans-serif;
+  --sans: "Manrope", sans-serif;
+  --mono: "JetBrains Mono", monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+}
+
+/* Modalità FUCKED UP: contrasto più tagliente sul bordo */
+body[data-mode="fuckedup"] {
+  --grid-line: rgba(10, 10, 10, 0.15);
+}
+
+/* ---------------- TOP HUD ---------------- */
+.hud-top {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: var(--bg);
+  border-bottom: 2px solid var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  z-index: 40;
+  gap: 16px;
+}
+
+.brand-trigger {
+  background: none;
+  border: 2px solid var(--ink);
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+}
+
+.brand-trigger:hover {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.dot-live {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--green);
+  display: inline-block;
+}
+
+body[data-mode="invested"] .dot-live { background: var(--yellow); }
+body[data-mode="fuckedup"] .dot-live { background: var(--red); }
+
+.brand-name {
+  font-family: var(--disp);
+  font-stretch: 65%;
+  font-variation-settings: "wdth" 65;
+  font-weight: 900;
+  font-size: 1.35rem;
+  letter-spacing: 0.03em;
+}
+
+.brand-sub {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  opacity: 0.7;
+}
+
+.hud-filters {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.hud-filters::-webkit-scrollbar { display: none; }
+
+.flt {
+  background: transparent;
+  border: 1.5px solid var(--ink);
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 6px 11px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.18s ease;
+}
+
+.flt sup {
+  font-size: 0.6rem;
+  margin-left: 2px;
+}
+
+.flt:hover {
+  background: rgba(10, 10, 10, 0.08);
+}
+
+.flt.on {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.audio-btn {
+  background: transparent;
+  border: 2px solid var(--ink);
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 800;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.audio-btn[aria-pressed="true"] {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.eq-bars {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 12px;
+}
+
+.eq-bars i {
+  width: 3px;
+  height: 3px;
+  background: currentColor;
+  display: block;
+  transition: height 0.08s linear;
+}
+
+/* ---------------- MIND STAGE & SWISS GRID ---------------- */
+.mind-stage {
+  position: relative;
+  width: 100vw;
+  height: calc(100vh - 118px);
+  margin-top: 60px;
+  overflow: hidden;
+  cursor: crosshair;
+}
+
+.swiss-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.coord {
+  position: absolute;
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  color: var(--mute);
+  text-transform: uppercase;
+}
+
+.c-tl { top: 14px; left: 20px; }
+.c-tr { top: 14px; right: 20px; }
+.c-bl { bottom: 14px; left: 20px; }
+.c-br { bottom: 14px; right: 20px; }
+
+#synapseCanvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.nodes-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+}
+
+/* ---------------- NODI PROGETTO & VENTAGLIO MAGNETICO ---------------- */
+.p-node {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  pointer-events: auto;
+  cursor: pointer;
+  transition: opacity 0.35s ease, filter 0.35s ease;
+  z-index: 6;
+}
+
+.p-node.dimmed {
+  opacity: 0.16;
+  filter: grayscale(1);
+  pointer-events: none;
+}
+
+.node-core {
+  position: relative;
+  background: var(--bg);
+  border: 2.5px solid var(--ink);
+  padding: 10px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  box-shadow: 4px 4px 0px var(--ink);
+  transition: transform 0.2s cubic-bezier(0.2, 0.9, 0.2, 1),
+              background 0.2s,
+              box-shadow 0.2s;
+}
+
+.p-node.is-main .node-core {
+  padding: 14px 22px;
+  border-width: 3px;
+}
+
+.p-node.is-todo .node-core {
+  border-style: dashed;
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--bg),
+    var(--bg) 6px,
+    rgba(10,10,10,0.05) 6px,
+    rgba(10,10,10,0.05) 12px
+  );
+}
+
+.node-kicker {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.node-title {
+  font-family: var(--disp);
+  font-stretch: 62%;
+  font-variation-settings: "wdth" 62;
+  font-weight: 900;
+  font-size: 1.55rem;
+  line-height: 0.92;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
+.p-node.is-main .node-title {
+  font-size: 2.2rem;
+}
+
+.node-active-role {
+  font-family: var(--mono);
+  font-size: 0.64rem;
+  font-weight: 700;
+  color: var(--mute);
+  text-transform: uppercase;
+}
+
+/* Esplosione POP all'hover / aggancio magnetico */
+.p-node:hover,
+.p-node.magnet-locked {
+  z-index: 25;
+}
+
+.p-node:hover .node-core,
+.p-node.magnet-locked .node-core {
+  background: var(--node-pop);
+  color: #0a0a0a;
+  box-shadow: 8px 8px 0px var(--ink);
+}
+
+.p-node:hover .node-active-role,
+.p-node.magnet-locked .node-active-role {
+  color: #0a0a0a;
+}
+
+/* VENTAGLIO MAGNETICO (Carte che si aprono attorno al pin) */
+.fan-deck {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.fan-card {
+  position: absolute;
+  width: 170px;
+  background: var(--bg);
+  border: 2px solid var(--ink);
+  box-shadow: 5px 5px 0px var(--ink);
+  padding: 8px;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.4) rotate(0deg);
+  transition: transform 0.32s cubic-bezier(0.18, 0.89, 0.32, 1.28),
+              opacity 0.22s ease;
+  pointer-events: none;
+}
+
+.fan-card-tag {
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  font-weight: 800;
+  background: var(--node-pop);
+  color: #0a0a0a;
+  padding: 2px 5px;
+  display: inline-block;
+  margin-bottom: 5px;
+  border: 1px solid var(--ink);
+  text-transform: uppercase;
+}
+
+.fan-card-title {
+  font-family: var(--disp);
+  font-stretch: 70%;
+  font-weight: 900;
+  font-size: 0.95rem;
+  line-height: 1;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+  color: var(--ink);
+}
+
+.fan-card-desc {
+  font-size: 0.68rem;
+  line-height: 1.25;
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.p-node:hover .fan-card,
+.p-node.magnet-locked .fan-card {
+  opacity: 1;
+}
+
+/* ---------------- BOTTOM HUD: INNER THOUGHTS & SEMAFORO ---------------- */
+.hud-bottom {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 58px;
+  background: var(--bg);
+  border-top: 2px solid var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  z-index: 40;
+  gap: 20px;
+}
+
+.inner-thoughts {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.thought-tag {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 800;
+  background: var(--ink);
+  color: var(--bg);
+  padding: 4px 8px;
+  white-space: nowrap;
+}
+
+.thought-stream {
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mode-switch {
+  display: flex;
+  align-items: center;
+  border: 2px solid var(--ink);
+  background: var(--bg);
+}
+
+.m-btn {
+  background: transparent;
+  border: 0;
+  border-right: 2px solid var(--ink);
+  padding: 8px 14px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 800;
+  cursor: pointer;
+  color: var(--ink);
+  transition: background 0.15s;
+}
+
+.m-btn:last-child {
+  border-right: 0;
+}
+
+.m-btn .light {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1.5px solid var(--ink);
+}
+
+.l-green { background: var(--green); }
+.l-yellow { background: var(--yellow); }
+.l-red { background: var(--red); }
+
+.m-btn.on[data-set-mode="playful"] { background: var(--green); color: #0a0a0a; }
+.m-btn.on[data-set-mode="invested"] { background: var(--yellow); color: #0a0a0a; }
+.m-btn.on[data-set-mode="fuckedup"] { background: var(--red); color: #ffffff; }
+
+/* ---------------- STUDY DRAWER (SCHEDA STUDIO APPROFONDITA) ---------------- */
+.study-drawer {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.study-drawer[aria-hidden="false"] {
+  pointer-events: auto;
+}
+
+.drawer-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 10, 10, 0.45);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.study-drawer[aria-hidden="false"] .drawer-backdrop {
+  opacity: 1;
+}
+
+.drawer-panel {
+  position: relative;
+  width: min(760px, 94vw);
+  height: 100%;
+  background: var(--bg);
+  border-left: 3px solid var(--ink);
+  transform: translateX(102%);
+  transition: transform 0.38s cubic-bezier(0.19, 1, 0.22, 1);
+  display: flex;
+  flex-direction: column;
+  z-index: 2;
+}
+
+.study-drawer[aria-hidden="false"] .drawer-panel {
+  transform: translateX(0%);
+}
+
+.drawer-hd {
+  padding: 18px 24px;
+  border-bottom: 2.5px solid var(--ink);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--drawer-pop, var(--bg));
+}
+
+.drawer-id {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  font-weight: 800;
+  display: block;
+}
+
+.drawer-roles {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  opacity: 0.85;
+}
+
+.drawer-close {
+  background: var(--ink);
+  color: var(--bg);
+  border: 0;
+  padding: 8px 14px;
+  font-family: var(--mono);
+  font-weight: 800;
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+
+.drawer-body {
+  padding: 28px 24px 60px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.dw-title {
+  font-family: var(--disp);
+  font-stretch: 62%;
+  font-variation-settings: "wdth" 62;
+  font-weight: 900;
+  font-size: clamp(3rem, 7vw, 5.2rem);
+  line-height: 0.86;
+  text-transform: uppercase;
+}
+
+.dw-voice-box {
+  border: 2.5px solid var(--ink);
+  padding: 18px;
+  background: #fff;
+  box-shadow: 6px 6px 0px var(--ink);
+}
+
+.dw-voice-label {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  display: inline-block;
+  padding: 2px 6px;
+  background: var(--drawer-pop);
+  border: 1px solid var(--ink);
+}
+
+.dw-voice-copy {
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+/* Widget interattivi specifici per progetto (es. Marsea Body Loop & Tipule Year Switch) */
+.interactive-study-box {
+  border: 2px solid var(--ink);
+  padding: 16px;
+  background: rgba(10,10,10,0.03);
+}
+
+.interactive-study-box h4 {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.loop-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.loop-pill {
+  border: 2px solid var(--ink);
+  background: var(--bg);
+  padding: 6px 12px;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.loop-pill.active {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.loop-preview {
+  padding: 16px;
+  border: 2px solid var(--ink);
+  font-weight: 700;
+  font-size: 0.92rem;
+  transition: background 0.25s, color 0.25s;
+}
+
+.dw-outputs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 14px;
+}
+
+.dw-output-card {
+  border: 2px solid var(--ink);
+  padding: 14px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.dw-output-card b {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  background: var(--drawer-pop);
+  padding: 2px 6px;
+  align-self: flex-start;
+  border: 1px solid var(--ink);
+}
+
+.dw-output-card h5 {
+  font-family: var(--disp);
+  font-stretch: 68%;
+  font-size: 1.3rem;
+  text-transform: uppercase;
+  line-height: 0.95;
+}
+
+.dw-output-card p {
+  font-size: 0.84rem;
+  color: var(--mute);
+  font-weight: 600;
+}
+
+.dw-ext-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.dw-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--ink);
+  color: var(--bg);
+  text-decoration: none;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 10px 16px;
+  border: 2px solid var(--ink);
+  transition: transform 0.15s, background 0.15s, color 0.15s;
+}
+
+.dw-link:hover {
+  background: var(--drawer-pop);
+  color: #0a0a0a;
+  transform: translate(-2px, -2px);
+  box-shadow: 4px 4px 0px var(--ink);
+}
+
+@media (max-width: 820px) {
+  .brand-sub, .coord { display: none; }
+  .p-node .node-title { font-size: 1.2rem; }
+  .p-node.is-main .node-title { font-size: 1.55rem; }
+  .thought-tag { display: none; }
+}

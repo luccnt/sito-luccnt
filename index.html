@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>LUCCNT — Mind Map &amp; Living Archive</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..900&family=JetBrains+Mono:wght@400;700;800&family=Manrope:wght@400..800&display=swap">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-mode="playful" data-filter="all">
+
+  <!-- TOP HUD: BRAND, FILTRI MANSIONE, AUDIO ENGINE -->
+  <header class="hud-top">
+    <div class="hud-brand">
+      <button class="brand-trigger" id="selfNodeBtn" type="button" title="Apri il nodo concettuale LUCCNT">
+        <span class="dot-live"></span>
+        <span class="brand-name">LUCCNT</span>
+        <span class="brand-sub">// CONSCIOUSNESS v2.6</span>
+      </button>
+    </div>
+
+    <!-- 7 FILTRI MANSIONE + ALL -->
+    <nav class="hud-filters" aria-label="Filtra per mansione">
+      <button class="flt on" data-role="all" type="button">ALL NODES <sup>10</sup></button>
+      <button class="flt" data-role="art-direction" type="button">Art Direction</button>
+      <button class="flt" data-role="graphic" type="button">Visual &amp; Graphic</button>
+      <button class="flt" data-role="ui-ux" type="button">UI/UX</button>
+      <button class="flt" data-role="photo" type="button">Photo</button>
+      <button class="flt" data-role="video" type="button">Video</button>
+      <button class="flt" data-role="copywriting" type="button">Copywriting</button>
+      <button class="flt" data-role="pm" type="button">Project Management</button>
+    </nav>
+
+    <!-- AUDIO REACTIVE MODULE -->
+    <div class="hud-audio">
+      <!-- Sostituisci src="ambient-track.mp3" con il file del tuo amico -->
+      <audio id="bgAudio" src="ambient-track.mp3" loop crossorigin="anonymous"></audio>
+      <button class="audio-btn" id="audioToggle" type="button" aria-pressed="false">
+        <span class="eq-bars" id="eqBars">
+          <i></i><i></i><i></i><i></i>
+        </span>
+        <span class="audio-lbl">AUDIO // OFF</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- TELA INFINITA / MAPPA CEREBRALE -->
+  <main class="mind-stage" id="mindStage">
+    <!-- Griglia Cartesiana Svizzera + Coordinate -->
+    <div class="swiss-grid" aria-hidden="true">
+      <span class="coord c-tl">45.0703° N, 7.6869° E // TORINO — LECCE</span>
+      <span class="coord c-tr" id="cursorCoords">X: 0000 // Y: 0000 // VEL: 0.0</span>
+      <span class="coord c-bl">SYS: READY // DRAG OR HOVER NODES</span>
+      <span class="coord c-br">FILTER: <b id="activeFilterLabel">ALL NODES</b></span>
+    </div>
+
+    <!-- Canvas per Connessioni Sinaptiche, Scia Cinetica (B) e Onde Audioreattive -->
+    <canvas id="synapseCanvas"></canvas>
+
+    <!-- Contenitore Nodi Progetto e Ventaglio Magnetico (C) -->
+    <div class="nodes-layer" id="nodesLayer"></div>
+  </main>
+
+  <!-- BOTTOM HUD: LUC'S INNER THOUGHTS + SEMAFORO PLAYFUL / INVESTED / FUCKED UP -->
+  <footer class="hud-bottom">
+    <!-- LUC'S INNER THOUGHTS (One-to-One Stream) -->
+    <div class="inner-thoughts" id="innerThoughtsBox">
+      <div class="thought-tag">LUC'S INNER THOUGHTS //</div>
+      <p class="thought-stream" id="thoughtStream">
+        Muovi il cursore. Non è una galleria d'arte, puoi toccare tutto.
+      </p>
+    </div>
+
+    <!-- SWITCH SEMAFORO -->
+    <div class="mode-switch" role="group" aria-label="Seleziona modalità di coscienza">
+      <button class="m-btn on" data-set-mode="playful" type="button">
+        <span class="light l-green"></span>
+        <span>PLAYFUL</span>
+      </button>
+      <button class="m-btn" data-set-mode="invested" type="button">
+        <span class="light l-yellow"></span>
+        <span>INVESTED</span>
+      </button>
+      <button class="m-btn" data-set-mode="fuckedup" type="button">
+        <span class="light l-red"></span>
+        <span>FUCKED UP</span>
+      </button>
+    </div>
+  </footer>
+
+  <!-- DRAWER STUDIO PROGETTO (Si apre al click sul nodo con tutto lo studio approfondito) -->
+  <aside class="study-drawer" id="studyDrawer" aria-hidden="true">
+    <div class="drawer-backdrop" id="drawerBackdrop"></div>
+    <div class="drawer-panel">
+      <header class="drawer-hd">
+        <div class="drawer-meta">
+          <span class="drawer-id" id="dwId">01 // MAIN HUB</span>
+          <span class="drawer-roles" id="dwRoles"></span>
+        </div>
+        <button class="drawer-close" id="drawerClose" type="button" aria-label="Chiudi scheda">✕ ESC</button>
+      </header>
+
+      <div class="drawer-body" id="dwBody">
+        <!-- Popolato dinamicamente da script.js in base a Progetto, Filtro e Switch -->
+      </div>
+    </div>
+  </aside>
+
+  <script src="script.js"></script>
+</body>
+</html>
